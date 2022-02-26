@@ -14,6 +14,10 @@ This repository is an example of how to setup an automatic [CI/CD](https://en.wi
 [Demo Google Sheet, Vanilla](https://docs.google.com/spreadsheets/d/1tli_An8Jg5-UQltOtRla7pz-mPRAYDfhExRkkVA2oJE/edit?usp=sharing)
 [Demo Google Sheet, Typescript](https://docs.google.com/spreadsheets/d/1jEbB5RxGvxuUd00X7UAuTqKZjBRqYsIt88dhF3tRHh8/edit?usp=sharing)
 
+## Using TypeScript:
+
+In your editor of choice, run [``npm install --save @types/google-apps-script``](https://www.npmjs.com/package/@types/google-apps-script)
+
 ## Why?
 
 This is useful if you want to work from a nicer editor than the built-in Google one (ie vsCode) and use GitHub for version control & etc.  There's probably a better thing to use for standalone GAS scripts or stuff that uses features of GCP, but if you don't have access to GCP because your organization locked down your gSuite access a little too much, this is a nice alternative.

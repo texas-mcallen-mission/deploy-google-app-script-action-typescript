@@ -1,4 +1,4 @@
-# Deploy Google App Script Action
+# Deploy Google App Script Action with TypeScript Compilation
 
 [![Deploy Script](https://github.com/HarrierPigeon/deploy-google-app-script-action/actions/workflows/deploy-script.yml/badge.svg?branch=main)](https://github.com/HarrierPigeon/deploy-google-app-script-action/actions/workflows/deploy-script.yml)
 
@@ -11,7 +11,8 @@ This repository is an example of how to setup an automatic [CI/CD](https://en.wi
    - ``commitTracker.js`` will automatically log whenever the script in GAS gets updated if you set up a recurring trigger for it.
     - at present, this requires a parent container.
 
-[Demo Google Sheet](https://docs.google.com/spreadsheets/d/1tli_An8Jg5-UQltOtRla7pz-mPRAYDfhExRkkVA2oJE/edit?usp=sharing)
+[Demo Google Sheet, Vanilla](https://docs.google.com/spreadsheets/d/1tli_An8Jg5-UQltOtRla7pz-mPRAYDfhExRkkVA2oJE/edit?usp=sharing)
+[Demo Google Sheet, Typescript](https://docs.google.com/spreadsheets/d/1jEbB5RxGvxuUd00X7UAuTqKZjBRqYsIt88dhF3tRHh8/edit?usp=sharing)
 
 ## Why?
 

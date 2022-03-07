@@ -14,7 +14,7 @@ This repository is an example of how to setup an automatic [CI/CD](https://en.wi
 [Demo Google Sheet, Vanilla](https://docs.google.com/spreadsheets/d/1tli_An8Jg5-UQltOtRla7pz-mPRAYDfhExRkkVA2oJE/edit?usp=sharing)
 [Demo Google Sheet, Typescript](https://docs.google.com/spreadsheets/d/1jEbB5RxGvxuUd00X7UAuTqKZjBRqYsIt88dhF3tRHh8/edit?usp=sharing)
 
-## Using TypeScript:
+## Using TypeScript
 
 In your editor of choice, run [``npm install --save @types/google-apps-script``](https://www.npmjs.com/package/@types/google-apps-script)
 
@@ -102,16 +102,16 @@ The workflow can automatically deploy the script when the `main` branch is pushe
 ##### Example snippet
 
 ```js
-    {
-        docIds_kicFormId: "KIC_FORM_ID",
-        reportCreator: {
-            docIDs: {
-                zoneTemplate: "ZONE_TEMPLATE_ID",
-                distTemplate: "DISTRICT_TEMPLATE_ID",
-                areaTemplate: "AREA_TEMPLATE_ID",
-            }
+{
+    docIds_kicFormId: "KIC_FORM_ID",
+    reportCreator: {
+        docIDs: {
+            zoneTemplate: "ZONE_TEMPLATE_ID",
+            distTemplate: "DISTRICT_TEMPLATE_ID",
+            areaTemplate: "AREA_TEMPLATE_ID",
         }
     }
+}
 ```
 
 ## Usage

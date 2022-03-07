@@ -74,7 +74,7 @@ The `clasp` command line tool uses a `.clasprc.json` file to store the current l
 #### `REPO_ACCESS_TOKEN`
 A GitHub personal access token must be provided to the workfow to allow it to update the `CLASPRC_JSON` secret configured about when tokens expire and refresh.
 
-1. Create a new [GitHubpersonal access token](https://github.com/settings/tokens/new) with `repo` scope.
+1. Create a new [GitHub personal access token](https://github.com/settings/tokens/new) with `repo` scope.
 2. Copy the token into a new secret named `REPO_ACCESS_TOKEN`
 
 #### `SCRIPT_ID` [OPTIONAL]

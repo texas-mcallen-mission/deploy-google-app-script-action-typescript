@@ -8,3 +8,11 @@ const GITHUB_DATA = {
     github_repository: "GITHUBREPOSITORY", // done
     github_branch_ref: "REFNAME" // done
 }
+
+
+
+const GITHUB_SECRET_DATA = {
+    //SECRET_DATA_GOES_HERE
+}
+
+

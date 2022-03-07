@@ -1,6 +1,6 @@
 # Deploy Google App Script Action with TypeScript Compilation
 
-[![Deploy Script](https://github.com/HarrierPigeon/deploy-google-app-script-action/actions/workflows/deploy-script.yml/badge.svg?branch=main)](https://github.com/HarrierPigeon/deploy-google-app-script-action/actions/workflows/deploy-script.yml)
+[![Deploy Script](https://github.com/texas-mcallen-mission/deploy-google-app-script-action-typescript/actions/workflows/deploy-script.yml/badge.svg)](https://github.com/texas-mcallen-mission/deploy-google-app-script-action-typescript/actions/workflows/deploy-script.yml)
 
 This repository is an example of how to setup an automatic [CI/CD](https://en.wikipedia.org/wiki/CI/CD) process for [Google Apps Script](https://developers.google.com/apps-script) using [GitHub Actions](https://docs.github.com/en/actions).
 

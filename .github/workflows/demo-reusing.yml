@@ -16,8 +16,8 @@ jobs:
     with:
       github_data: ${{ github.sha }}
     secrets:
-      CLASPRC_JSON_SECRET: ${{ secrets.CLASPRC_JSON }}
-      token: ${{ secrets.REPO_ACCESS_TOKEN }}
+      CLASPRC_JSON: ${{ secrets.CLASPRC_JSON }}
+      REPO_ACCESS_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
       DEPLOYMENT_ID: ${{ secrets.DEPLOYMENT_ID }}
       SCRIPT_ID: ${{secrets.SCRIPT_ID}}
       PARENT_ID: ${{secrets.PARENT_ID}}

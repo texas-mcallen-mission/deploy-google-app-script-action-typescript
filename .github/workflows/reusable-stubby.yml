@@ -1,5 +1,5 @@
 name: Reusable Deploy Script Stubby
-
+# Copy this one into your own repository- change up the things your secrets reference if necessary, and run!
 on:
   workflow_dispatch:
   push:
@@ -12,7 +12,7 @@ on:
 
 jobs:
   call-workflow-passing-data:
-    uses: texas-mcallen-mission/deploy-google-app-script-action-typescript/.github/workflows/reusable-test-workflow.yml@creating-reusable-flow
+    uses: texas-mcallen-mission/deploy-google-app-script-action-typescript/.github/workflows/reusable-test-workflow.yml@main
     with:
       github_data: ${{ github.sha }}
     secrets:

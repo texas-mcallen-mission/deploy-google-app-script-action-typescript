@@ -76,6 +76,7 @@ jobs:
           s/COMMITACTOR/$COMMIT_ACTOR/g;
           s/EVENTNAME/$EVENT_NAME/g;
           s/JOBID/$GITHUB_JOB/g;
+          s|//SECRET_DATA|$CONFIG_DATA|g;
           s|GITHUBREPOSITORY|$GITHUB_REPOSITORY|g" git-info.js
         env:
           COMMIT_SHA: ${{ github.sha }}
@@ -84,15 +85,16 @@ jobs:
           GITHUB_JOB: ${{ github.job }}
           GITHUB_REPOSITORY: ${{ github.repository }} 
           GITHUB_REF_NAME: ${{ github.ref_name }}
+          CONFIG_DATA: ${{ secrets.CONFIG_JSON }}
           # 🐧
 
-      - name: Add Config data from Secret
-        id: set-config-data
-        # if: [[ -n ${{ env.CONFIG_JSON }} 
-        run: >
-          sed -ibak -e "s|//SECRET_DATA|$CONFIG_DATA|g" git-info.js
-        env:
-          CONFIG_DATA: ${{ secrets.CONFIG_JSON }}
+      # - name: Add Config data from Secret
+      #   id: set-config-data
+      #   # if: [[ -n ${{ env.CONFIG_JSON }} 
+      #   run: >
+      #     sed -ibak -e "s|//SECRET_DATA|$CONFIG_DATA|g" git-info.js
+      #   env:
+      #     CONFIG_DATA: ${{ secrets.CONFIG_JSON }}
 
       - name: Push script to scripts.google.com
         id: clasp-push

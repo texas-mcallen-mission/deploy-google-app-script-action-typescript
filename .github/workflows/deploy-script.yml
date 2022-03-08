@@ -89,7 +89,7 @@ jobs:
 
       - name: Add Config data from Secret
         id: set-config-data
-        if: [[ -n ${{ env.CONFIG_JSON }} ]]
+        # if: [[ -n ${{ env.CONFIG_JSON }} 
         run: >
           sed -ibak -e "
           s|//SECRET_DATA_GOES_HERE|$CONFIG_DATA|g" git-info.js

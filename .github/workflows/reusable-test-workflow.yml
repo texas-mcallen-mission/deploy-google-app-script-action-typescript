@@ -8,7 +8,7 @@ on:
         type: string
     secrets:
       # CLASPRC_JSON_SECRET: ${{ secrets.CLASPRC_JSON }}
-      CLASPRC_JSON_SECRET:
+      CLASPRC_JSON:
         required: true
         # type: string
       # token: ${{ secrets.REPO_ACCESS_TOKEN }}

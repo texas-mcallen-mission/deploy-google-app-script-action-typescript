@@ -91,7 +91,7 @@ jobs:
         id: set-config-data
         # if: [[ -n ${{ env.CONFIG_JSON }} 
         run: >
-          sed -e "s|no:data|$CONFIG_DATA|g" git-info.js
+          sed -e "s|data|$CONFIG_DATA|g" git-info.js
         env:
           CONFIG_DATA: ${{ secrets.CONFIG_JSON}}
 

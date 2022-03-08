@@ -1,56 +1,16 @@
-name: Deploy Via CLASP
+name: Deploy Script
 
 on:
-  workflow_call:
-    inputs:
-      sha:
-        required: false
-        type: string
-      event_name:
-        required: false
-        type: string
-      actor:
-        required: false
-        type: string
-      job:
-        required: false
-        type: string
-      repository:
-        required: false
-        type: string 
-      ref_name:
-        required: false
-        type: string
-          
-    secrets:
-      # CLASPRC_JSON_SECRET: ${{ secrets.CLASPRC_JSON }}
-      CLASPRC_JSON:
-        required: true
-        # type: string
-      # token: ${{ secrets.REPO_ACCESS_TOKEN }}
-      REPO_ACCESS_TOKEN:
-        required: true
-      # DEPLOYMENT_ID: ${{ secrets.DEPLOYMENT_ID }}
-      DEPLOYMENT_ID:
-        required: true
-        # type: string
-      # SCRIPT_ID: ${{secrets.SCRIPT_ID}}
-      SCRIPT_ID:
-        required: false # but ***STRONGLY*** RECOMMENDED!
-        # type: string
-      # PARENT_ID: ${{secrets.PARENT_ID}}
-      PARENT_ID:
-        required: false
-        # type: string
-      # CONFIG_DATA: ${{ secrets.CONFIG_JSON }}
-      CONFIG_DATA:
-        required: false
-        # type: string
-
-
+  workflow_dispatch:
+  push:
+    branches: []
+  release:
+    types: [published]
+  schedule:
+    - cron: "0 0 * * SUN"
 
 jobs:
-  reusable_workflow_job:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -79,7 +39,7 @@ jobs:
         if: ${{ env.CLASPRC_JSON_FILE != env.CLASPRC_JSON_SECRET  }}
         uses: hmanzur/actions-set-secret@v2.0.0
         env:
-          CLASPRC_JSON_SECRET: ${{ secrets.CLASPRC }}
+          CLASPRC_JSON_SECRET: ${{ secrets.CLASPRC_JSON }}
         with:
           name: "CLASPRC_JSON"
           value: ${{ env.CLASPRC_JSON_FILE }}
@@ -119,14 +79,22 @@ jobs:
           s|//SECRET_DATA|$CONFIG_DATA|g;
           s|GITHUBREPOSITORY|$GITHUB_REPOSITORY|g' git-info.js
         env:
-          COMMIT_SHA: ${{ inputs.sha }}
-          EVENT_NAME: ${{ inputs.event_name }}
-          COMMIT_ACTOR: ${{ inputs.actor }}
-          GITHUB_JOB: ${{ inputs.job }}
-          GITHUB_REPOSITORY: ${{ inputs.repository }}
-          GITHUB_REF_NAME: ${{ inputs.ref_name }}
+          COMMIT_SHA: ${{ github.sha }}
+          EVENT_NAME: ${{ github.event_name }}
+          COMMIT_ACTOR: ${{ github.actor }}
+          GITHUB_JOB: ${{ github.job }}
+          GITHUB_REPOSITORY: ${{ github.repository }} 
+          GITHUB_REF_NAME: ${{ github.ref_name }}
           CONFIG_DATA: ${{ secrets.CONFIG_JSON }}
           # 🐧
+
+      # - name: Add Config data from Secret
+      #   id: set-config-data
+      #   # if: [[ -n ${{ env.CONFIG_JSON }} 
+      #   run: >
+      #     sed -ibak -e "s|//SECRET_DATA|$CONFIG_DATA|g" git-info.js
+      #   env:
+      #     CONFIG_DATA: ${{ secrets.CONFIG_JSON }}
 
       - name: Push script to scripts.google.com
         id: clasp-push
@@ -139,3 +107,30 @@ jobs:
         run: clasp deploy -i "$DEPLOYMENT_ID" -d "$GITHUB_REF"
         env:
           DEPLOYMENT_ID: ${{ secrets.DEPLOYMENT_ID }}
+  # dump-context:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Dump GitHub context
+  #       env:
+  #         GITHUB_CONTEXT: ${{ toJSON(github) }}
+  #       run: echo "$GITHUB_CONTEXT"
+  #     - name: Dump job context
+  #       env:
+  #         JOB_CONTEXT: ${{ toJSON(job) }}
+  #       run: echo "$JOB_CONTEXT"
+  #     - name: Dump steps context
+  #       env:
+  #         STEPS_CONTEXT: ${{ toJSON(steps) }}
+  #       run: echo "$STEPS_CONTEXT"
+  #     - name: Dump runner context
+  #       env:
+  #         RUNNER_CONTEXT: ${{ toJSON(runner) }}
+  #       run: echo "$RUNNER_CONTEXT"
+  #     - name: Dump strategy context
+  #       env:
+  #         STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
+  #       run: echo "$STRATEGY_CONTEXT"
+  #     - name: Dump matrix context
+  #       env:
+  #         MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+  #       run: echo "$MATRIX_CONTEXT"

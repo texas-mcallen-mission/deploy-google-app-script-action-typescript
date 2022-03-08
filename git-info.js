@@ -12,7 +12,7 @@ const GITHUB_DATA = {
 
 
 const GITHUB_SECRET_DATA = {
-    no:data
+    //SECRET_DATA
 }
 
 

@@ -77,7 +77,6 @@ jobs:
           s/EVENTNAME/$EVENT_NAME/g;
           s/JOBID/$GITHUB_JOB/g;
           s|GITHUBREPOSITORY|$GITHUB_REPOSITORY|g" git-info.js
-          
         env:
           COMMIT_SHA: ${{ github.sha }}
           EVENT_NAME: ${{ github.event_name }}
@@ -91,9 +90,9 @@ jobs:
         id: set-config-data
         # if: [[ -n ${{ env.CONFIG_JSON }} 
         run: >
-          sed -e "s|data|$CONFIG_DATA|g" git-info.js
+          sed -e -ibak "s|//SECRET_DATA|$CONFIG_DATA|g" git-info.js
         env:
-          CONFIG_DATA: ${{ secrets.CONFIG_JSON}}
+          CONFIG_DATA: ${{ secrets.CONFIG_JSON }}
 
       - name: Push script to scripts.google.com
         id: clasp-push

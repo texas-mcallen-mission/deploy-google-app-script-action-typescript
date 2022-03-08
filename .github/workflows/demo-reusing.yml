@@ -1,0 +1,24 @@
+name: Reusable Deploy Script Stubby
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [creating-reusable-flow]
+  release:
+    types: [published]
+  schedule:
+    - cron: "0 0 * * SUN"
+
+
+jobs:
+  call-workflow-passing-data:
+    uses: texas-mcallen-mission/deploy-google-app-script-action-typescript/.github/workflows/reusable-test-workflow.yml@creating-reusable-flow
+    with:
+      github_data: ${{ github.sha }}
+    secrets:
+      CLASPRC_JSON_SECRET: ${{ secrets.CLASPRC_JSON }}
+      token: ${{ secrets.REPO_ACCESS_TOKEN }}
+      DEPLOYMENT_ID: ${{ secrets.DEPLOYMENT_ID }}
+      SCRIPT_ID: ${{secrets.SCRIPT_ID}}
+      PARENT_ID: ${{secrets.PARENT_ID}}
+      CONFIG_DATA: ${{ secrets.CONFIG_JSON }}

@@ -3,7 +3,7 @@ name: Reusable Deploy Script
 on:
   workflow_dispatch:
   push:
-    branches: [creating-reusable-flow]
+    branches: [woopsies]
   release:
     types: [published]
   schedule:

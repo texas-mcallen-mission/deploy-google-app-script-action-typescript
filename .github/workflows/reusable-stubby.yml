@@ -20,7 +20,7 @@ jobs:
       actor: ${{ github.actor }}
       job: ${{ github.job }}
       repository: ${{ github.repository }}
-      ref_name: ${{ github.ref_name }
+      ref_name: ${{ github.ref_name }}
     secrets:
       # THESE are the ones that are deployment-specific.
       CLASPRC_JSON: ${{ secrets.CLASPRC_JSON }}

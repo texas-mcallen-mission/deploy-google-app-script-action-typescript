@@ -92,7 +92,7 @@ jobs:
         if: ${{ env.CONFIG_JSON }}
         run: >
           sed -ibak -e "
-          s|//SECRET_DATA_GOES_HERE|$CONFIG_DATA|g" git-info.js
+          s|SECRET_DATA_GOES_HERE|$CONFIG_DATA|g" git-info.js
         env:
           CONFIG_DATA: ${{ secrets.CONFIG_JSON}}
 

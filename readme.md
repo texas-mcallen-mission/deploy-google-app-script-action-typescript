@@ -99,6 +99,9 @@ The workflow can automatically deploy the script when the `main` branch is pushe
 
 (New!)  This allows you to stick extra config data that you want to supersede the stuff in the default configuration inside of an action secret.  It'd probably be a good idea to save the contents of this somewhere outside of your repository so that you can reference it later in case you need to make changes.  This will also make maintaining multiple deployments easier, as all deployment-specific configuration bits can be stuck in here.
 
+*NOTE: YOU HAVE TO USE DOUBLE-QUOTES, NOT SINGLE QUOTES! OTHERWISE THINGS* ***WILL*** *BREAK!*
+ - this is because of the way the action workflow is set up- it might be a little bit fragile 😅
+
 ##### Example snippet
 
 ```js
@@ -137,13 +140,13 @@ However, there are [conditions where the refresh token may also expire](https://
 
 ## GCP Service Accounts
 
-The whole system described here copying the credentials out of `.clasprc.json` and using a scheduled trigger to automatically update the tokens on a regular basis is a hack. 
+The whole system described here copying the credentials out of `.clasprc.json` and using a scheduled trigger to automatically update the tokens on a regular basis is a hack.
 
 The "correct" way to setup a server to server connection like is through a GCP service account. It is possible to login clasp using a key file for a service account. However, the [Apps Scripts API](https://developers.google.com/apps-script/api/concepts) does not work with service accounts.
 
 - [Execution API - cant use service account](https://issuetracker.google.com/issues/36763096)
 - [Can the Google Apps Script Execution API be called by a service account?](https://stackoverflow.com/questions/33306299/can-the-google-apps-script-execution-api-be-called-by-a-service-account)
-  
+
 ## Related Issues
 
 - [Provide instructions for deploying via CI #707](https://GitHub.com/google/clasp/issues/707)

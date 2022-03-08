@@ -46,7 +46,7 @@ jobs:
         id: write-clasprc
         run: echo "$CLASPRC_JSON_SECRET" >> ~/.clasprc.json
         env:
-: ${{ secrets.CLASPRC_JSON }}
+          CLASPRC_JSON_SECRET: ${{ secrets.CLASPRC_JSON }}
 
       - name: Check clasp login status
         id: clasp_login

@@ -93,15 +93,15 @@ jobs:
 
       - name: Set scriptId in .clasp.json file
         id: set-script-id
-        if: ${{ github.event_name	!= 'schedule' && env.SCRIPT_ID}}
-        run: jq '.scriptId = "${{env.SCRIPT_ID}}"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
+        if: ${{ github.event_name	!= 'schedule' && env.IN_SCRIPT_ID}}
+        run: jq '.scriptId = "${{env.IN_SCRIPT_ID}}"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
         env:
           SCRIPT_ID: ${{secrets.IN_SCRIPT_ID}}
 
       - name: Set parentId in .clasp.json file
         id: set-parent-id
-        if: ${{ github.event_name	!= 'schedule' && env.PARENT_ID}}
-        run: jq '.parentId = "[${{env.PARENT_ID}}]"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
+        if: ${{ github.event_name	!= 'schedule' && env.IN_PARENT_ID}}
+        run: jq '.parentId = "[${{env.IN_PARENT_ID}}]"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
         env:
           PARENT_ID: ${{secrets.IN_PARENT_ID}}
 
@@ -112,12 +112,12 @@ jobs:
         id: modify-git-info
         run: >
           sed -ibak -e 's/COMMITSHA/${{ inputs.sha }}/g;
-          s/REFNAME/$GITHUB_REF_NAME/g;
-          s/COMMITACTOR/$COMMIT_ACTOR/g;
-          s/EVENTNAME/$EVENT_NAME/g;
-          s/JOBID/$GITHUB_JOB/g;
-          s|//SECRET_DATA|$CONFIG_DATA|g;
-          s|GITHUBREPOSITORY|$GITHUB_REPOSITORY|g' git-info.js
+          s/REFNAME/${{ inputs.ref_name }}/g;
+          s/COMMITACTOR/${{ inputs.actor }}/g;
+          s/EVENTNAME/${{ inputs.event_name }}/g;
+          s/JOBID/${{ inputs.job }}/g;
+          s|//SECRET_DATA|${{ secrets.IN_CONFIG_JSON }}|g;
+          s|GITHUBREPOSITORY|${{ inputs.repository }}|g' git-info.js
         env:
           COMMIT_SHA: ${{ inputs.sha }}
           EVENT_NAME: ${{ inputs.event_name }}

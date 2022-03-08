@@ -124,7 +124,7 @@ jobs:
           COMMIT_ACTOR: ${{ inputs.actor }}
           GITHUB_JOB: ${{ inputs.job }}
           GITHUB_REPOSITORY: ${{ inputs.repository }}
-          GITHUB_REF_NAME: ${{ inputs.ref_name }
+          GITHUB_REF_NAME: ${{ inputs.ref_name }}
           CONFIG_DATA: ${{ secrets.CONFIG_JSON }}
           # 🐧
 

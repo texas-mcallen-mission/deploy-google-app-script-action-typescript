@@ -1,0 +1,31 @@
+name: Reusable Deploy Script Stubby
+# Copy this one into your own repository- change up the things your secrets reference if necessary, and run!
+on:
+  workflow_dispatch:
+  push:
+    branches: [creating-reusable-flow]
+  release:
+    types: [published]
+  schedule:
+    - cron: "0 0 * * SUN"
+
+
+jobs:
+  call-workflow-passing-data:
+    uses: texas-mcallen-mission/deploy-google-app-script-action-typescript/.github/workflows/reusable.yml@creating-reusable-flow
+    with:
+      # Github repository information
+      sha: ${{ github.sha }}
+      event_name: ${{ github.event_name }}
+      actor: ${{ github.actor }}
+      job: ${{ github.job }}
+      repository: ${{ github.repository }}
+      ref_name: ${{ github.ref_name }}
+    secrets:
+      # THESE are the ones that are deployment-specific.
+      CLASPRC_JSON: ${{ secrets.CLASPRC_JSON }}
+      REPO_ACCESS_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+      DEPLOYMENT_ID: ${{ secrets.DEPLOYMENT_ID }}
+      SCRIPT_ID: ${{secrets.SCRIPT_ID}}
+      PARENT_ID: ${{secrets.PARENT_ID}}
+      CONFIG_DATA: ${{ secrets.CONFIG_JSON }}

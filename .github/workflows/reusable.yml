@@ -23,27 +23,27 @@ on:
         type: string
           
     secrets:
-      # CLASPRC_JSON_SECRET: ${{ secrets.CLASPRC_JSON }}
-      CLASPRC_JSON:
+      # CLASPRC_JSON_SECRET: ${{ secrets.IN_CLASPRC_JSON }}
+      IN_CLASPRC_JSON:
         required: true
         # type: string
-      # token: ${{ secrets.REPO_ACCESS_TOKEN }}
-      REPO_ACCESS_TOKEN:
+      # token: ${{ secrets.IN_REPO_ACCESS_TOKEN }}
+      IN_REPO_ACCESS_TOKEN:
         required: true
-      # DEPLOYMENT_ID: ${{ secrets.DEPLOYMENT_ID }}
-      DEPLOYMENT_ID:
-        required: true
-        # type: string
-      # SCRIPT_ID: ${{secrets.SCRIPT_ID}}
-      SCRIPT_ID:
-        required: false # but ***STRONGLY*** RECOMMENDED!
-        # type: string
-      # PARENT_ID: ${{secrets.PARENT_ID}}
-      PARENT_ID:
+      # DEPLOYMENT_ID: ${{ secrets.IN_DEPLOYMENT_ID }}
+      IN_DEPLOYMENT_ID:
         required: false
         # type: string
-      # CONFIG_DATA: ${{ secrets.CONFIG_JSON }}
-      CONFIG_DATA:
+      # SCRIPT_ID: ${{secrets.IN_SCRIPT_ID}}
+      IN_SCRIPT_ID:
+        required: false # but ***STRONGLY*** RECOMMENDED!
+        # type: string
+      # PARENT_ID: ${{secrets.IN_PARENT_ID}}
+      IN_PARENT_ID:
+        required: false
+        # type: string
+      # CONFIG_DATA: ${{ secrets.IN_CONFIG_JSON }}
+      IN_CONFIG_DATA:
         required: false
         # type: string
 
@@ -62,7 +62,7 @@ jobs:
         id: write-clasprc
         run: echo "$CLASPRC_JSON_SECRET" >> ~/.clasprc.json
         env:
-          CLASPRC_JSON_SECRET: ${{ secrets.CLASPRC_JSON }}
+          CLASPRC_JSON_SECRET: ${{ secrets.IN_CLASPRC_JSON }}
 
       - name: Check clasp login status
         id: clasp_login
@@ -79,12 +79,12 @@ jobs:
         if: ${{ env.CLASPRC_JSON_FILE != env.CLASPRC_JSON_SECRET  }}
         uses: hmanzur/actions-set-secret@v2.0.0
         env:
-          CLASPRC_JSON_SECRET: ${{ secrets.CLASPRC }}
+          CLASPRC_JSON_SECRET: ${{ secrets.IN_CLASPRC }}
         with:
           name: "CLASPRC_JSON"
           value: ${{ env.CLASPRC_JSON_FILE }}
           repository: ${{ github.repository }}
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          token: ${{ secrets.IN_REPO_ACCESS_TOKEN }}
 
       - name: Checkout repo
         id: checkout-repo
@@ -96,14 +96,14 @@ jobs:
         if: ${{ github.event_name	!= 'schedule' && env.SCRIPT_ID}}
         run: jq '.scriptId = "${{env.SCRIPT_ID}}"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
         env:
-          SCRIPT_ID: ${{secrets.SCRIPT_ID}}
+          SCRIPT_ID: ${{secrets.IN_SCRIPT_ID}}
 
       - name: Set parentId in .clasp.json file
         id: set-parent-id
         if: ${{ github.event_name	!= 'schedule' && env.PARENT_ID}}
         run: jq '.parentId = "[${{env.PARENT_ID}}]"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
         env:
-          PARENT_ID: ${{secrets.PARENT_ID}}
+          PARENT_ID: ${{secrets.IN_PARENT_ID}}
 
     # Somewhere in here: push in github commit number and information to a stubby information js file
 
@@ -111,7 +111,7 @@ jobs:
       - name: update git-info.js
         id: modify-git-info
         run: >
-          sed -ibak -e 's/COMMITSHA/$COMMIT_SHA/g;
+          sed -ibak -e 's/COMMITSHA/${{ inputs.sha }}/g;
           s/REFNAME/$GITHUB_REF_NAME/g;
           s/COMMITACTOR/$COMMIT_ACTOR/g;
           s/EVENTNAME/$EVENT_NAME/g;
@@ -125,7 +125,7 @@ jobs:
           GITHUB_JOB: ${{ inputs.job }}
           GITHUB_REPOSITORY: ${{ inputs.repository }}
           GITHUB_REF_NAME: ${{ inputs.ref_name }}
-          CONFIG_DATA: ${{ secrets.CONFIG_JSON }}
+          CONFIG_DATA: ${{ secrets.IN_CONFIG_JSON }}
           # 🐧
 
       - name: Push script to scripts.google.com
@@ -138,4 +138,4 @@ jobs:
         if: ${{env.DEPLOYMENT_ID && (github.event_name == 'release' || (github.event_name == 'push' && github.ref == 'refs/heads/main'))}}
         run: clasp deploy -i "$DEPLOYMENT_ID" -d "$GITHUB_REF"
         env:
-          DEPLOYMENT_ID: ${{ secrets.DEPLOYMENT_ID }}
+          DEPLOYMENT_ID: ${{ secrets.IN_DEPLOYMENT_ID }}

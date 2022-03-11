@@ -121,25 +121,18 @@ jobs:
           EVENT_NAME: ${{ inputs.event_name }}
           COMMIT_ACTOR: ${{ inputs.actor }}
           GITHUB_JOB: ${{ inputs.job }}
-          GITHUB_REPOSITORY: ${{ inputs.repository }}
           GITHUB_REF_NAME: ${{ inputs.ref_name }}
-          CONFIG_DATA: ${{ secrets.IN_CONFIG_JSON }}
           # 🐧
 
       - name: update git-info.js Part 2
         id: modify-git-info-2
         run: >
           sed -ibak -e '
-          s|//SECRET_DATA|$CONFIG_DATA|g;
-          s|GITHUBREPOSITORY|$GITHUB_REPOSITORY|g' git-info.js
+          s|//SECRET_DATA|"$CONFIG_DATA"|g;
+          s|GITHUBREPOSITORY|"$GITHUB_REPOSITORY"|g' git-info.js
         env:
-          COMMIT_SHA: ${{ inputs.sha }}
-          EVENT_NAME: ${{ inputs.event_name }}
-          COMMIT_ACTOR: ${{ inputs.actor }}
-          GITHUB_JOB: ${{ inputs.job }}
-          GITHUB_REPOSITORY: ${{ inputs.repository }}
-          GITHUB_REF_NAME: ${{ inputs.ref_name }}
           CONFIG_DATA: ${{ secrets.IN_CONFIG_JSON }}
+          GITHUB_REPOSITORY: ${{ inputs.repository }}
           # 🐧
       - name: Push script to scripts.google.com
         id: clasp-push

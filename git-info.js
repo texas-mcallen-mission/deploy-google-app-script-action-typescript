@@ -12,5 +12,7 @@ const GITHUB_DATA = {
 
 
 const GITHUB_SECRET_DATA = {
+/*
     //SECRET_DATA
+*/
 }

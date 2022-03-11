@@ -106,12 +106,12 @@ The workflow can automatically deploy the script when the `main` branch is pushe
 
 ```js
 {
-    docIds_kicFormId: "KIC_FORM_ID",
+    docIds_kicFormId: 'KIC_FORM_ID',
     reportCreator: {
         docIDs: {
-            zoneTemplate: "ZONE_TEMPLATE_ID",
-            distTemplate: "DISTRICT_TEMPLATE_ID",
-            areaTemplate: "AREA_TEMPLATE_ID",
+            zoneTemplate: 'ZONE_TEMPLATE_ID',
+            distTemplate: 'DISTRICT_TEMPLATE_ID',
+            areaTemplate: 'AREA_TEMPLATE_ID',
         }
     }
 }

@@ -129,8 +129,8 @@ jobs:
       - name: update git-info.js Part 2
         id: modify-git-info-2
         run: >
-          sed -ibak -e '
-          s|//SECRET_DATA|"$CONFIG_DATA"|g' git-info.js
+          sed -ibak -e "
+          s|//SECRET_DATA|'$CONFIG_DATA'|g" git-info.js
         env:
           CONFIG_DATA: ${{ secrets.IN_CONFIG_JSON }}
           # 🐧

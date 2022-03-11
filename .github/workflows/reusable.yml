@@ -93,8 +93,8 @@ jobs:
 
       - name: Set scriptId in .clasp.json file
         id: set-script-id
-        if: ${{ github.event_name	!= 'schedule' && secrets.IN_SCRIPT_ID}}
-        run: jq '.scriptId = "${{secrets.IN_SCRIPT_ID}}"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
+        if: ${{ github.event_name	!= 'schedule' && env.SCRIPT_ID}}
+        run: jq '.scriptId = "${{env.SCRIPT_ID}}"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
         env:
           SCRIPT_ID: ${{secrets.IN_SCRIPT_ID}}
 

@@ -93,17 +93,17 @@ jobs:
 
       - name: Set scriptId in .clasp.json file
         id: set-script-id
-        if: ${{ github.event_name	!= 'schedule' && env.SCRIPT_ID}}
-        run: jq '.scriptId = "${{env.SCRIPT_ID}}"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
+        if: ${{ github.event_name	!= 'schedule' && env.SCRIPT_ID }}
+        run: jq '.scriptId = "${{ env.SCRIPT_ID }}"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
         env:
-          SCRIPT_ID: ${{secrets.IN_SCRIPT_ID}}
+          SCRIPT_ID: ${{ secrets.IN_SCRIPT_ID }}
 
       - name: Set parentId in .clasp.json file
         id: set-parent-id
-        if: ${{ github.event_name	!= 'schedule' && secrets.IN_PARENT_ID}}
-        run: jq '.parentId = "[${{secrets.IN_PARENT_ID}}]"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
+        if: ${{ github.event_name	!= 'schedule' && secrets.IN_PARENT_ID }}
+        run: jq '.parentId = "[${{ env.PARENT_ID }}]"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
         env:
-          PARENT_ID: ${{secrets.IN_PARENT_ID}}
+          PARENT_ID: ${{ secrets.IN_PARENT_ID }}
 
     # Somewhere in here: push in github commit number and information to a stubby information js file
 
@@ -130,7 +130,7 @@ jobs:
 
       - name: Push script to scripts.google.com
         id: clasp-push
-        if: ${{ github.event_name	!= 'schedule'}}
+        if: ${{ github.event_name	!= 'schedule' }}
         run: clasp push -f
 
       - name: Deploy Script

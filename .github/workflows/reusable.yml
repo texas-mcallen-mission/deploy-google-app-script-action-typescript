@@ -111,7 +111,7 @@ jobs:
       - name: update git-info.js
         id: modify-git-info
         run: >
-          sed -ibak -e 's/COMMITSHA/${{ inputs.sha }}/g;
+          sed -ibak -e 's/COMMITSHA/${{ env.COMMIT_SHA }}/g;
           s/REFNAME/${{ inputs.ref_name }}/g;
           s/COMMITACTOR/${{ inputs.actor }}/g;
           s/EVENTNAME/${{ inputs.event_name }}/g;

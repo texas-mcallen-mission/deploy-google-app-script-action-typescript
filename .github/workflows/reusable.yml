@@ -93,15 +93,15 @@ jobs:
 
       - name: Set scriptId in .clasp.json file
         id: set-script-id
-        if: ${{ github.event_name	!= 'schedule' && env.IN_SCRIPT_ID}}
-        run: jq '.scriptId = "${{env.IN_SCRIPT_ID}}"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
+        if: ${{ github.event_name	!= 'schedule' && secrets.IN_SCRIPT_ID}}
+        run: jq '.scriptId = "${{secrets.IN_SCRIPT_ID}}"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
         env:
           SCRIPT_ID: ${{secrets.IN_SCRIPT_ID}}
 
       - name: Set parentId in .clasp.json file
         id: set-parent-id
-        if: ${{ github.event_name	!= 'schedule' && env.IN_PARENT_ID}}
-        run: jq '.parentId = "[${{env.IN_PARENT_ID}}]"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
+        if: ${{ github.event_name	!= 'schedule' && secrets.IN_PARENT_ID}}
+        run: jq '.parentId = "[${{secrets.IN_PARENT_ID}}]"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
         env:
           PARENT_ID: ${{secrets.IN_PARENT_ID}}
 

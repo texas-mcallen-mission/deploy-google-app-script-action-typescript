@@ -129,7 +129,7 @@ jobs:
       - name: update git-info.js Part 2
         id: modify-git-info-2
         run: >
-          sed -e "s|//SECRET_DATA| ${{ env.CONFIG_DATA }} |g" git-info.js
+          sed -e "s|//SECRET_DATA|$CONFIG_DATA|g" git-info.js
         env:
           CONFIG_DATA: ${{ secrets.IN_CONFIG_DATA }}
           # 🐧

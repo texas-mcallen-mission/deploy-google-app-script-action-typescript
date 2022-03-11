@@ -6,7 +6,7 @@ const GITHUB_DATA = {
     github_actor:"COMMITACTOR", // done
     job_id:"JOBID", //done
     
-    //github_repository: "GITHUBREPOSITORY", // done
+    github_repository: "GITHUBREPOSITORY", // done
     github_branch_ref: "REFNAME" // done
 }
 

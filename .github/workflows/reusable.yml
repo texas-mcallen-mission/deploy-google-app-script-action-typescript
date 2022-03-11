@@ -100,7 +100,7 @@ jobs:
 
       - name: Set parentId in .clasp.json file
         id: set-parent-id
-        if: ${{ github.event_name	!= 'schedule' && secrets.IN_PARENT_ID }}
+        if: ${{ github.event_name	!= 'schedule' && env.PARENT_ID }}
         run: jq '.parentId = "[${{ env.PARENT_ID }}]"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
         env:
           PARENT_ID: ${{ secrets.IN_PARENT_ID }}

@@ -115,7 +115,7 @@ jobs:
           s/REFNAME/'$GITHUB_REF_NAME'/g;
           s/COMMITACTOR/'$COMMIT_ACTOR'/g;
           s/EVENTNAME/'$EVENT_NAME'/g;
-          s|GITHUBREPOSITORY|'$GITHUB_REPOSITORY'|g
+          s|GITHUBREPOSITORY|'$GITHUB_REPOSITORY'|g;
           s/JOBID/'$GITHUB_JOB'/g;" git-info.js
         env:
           COMMIT_SHA: ${{ inputs.sha }}

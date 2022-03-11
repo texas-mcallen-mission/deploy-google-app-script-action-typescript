@@ -36,7 +36,7 @@ file_out = open("git-info-modified.js","wt")
 
 for line in file_in:
     # print(line)
-    line_out = line.replace('PYTHON_STICKS_CONFIG_DATA_HERE', argumentString)
+    line_out = line.replace('//PYTHON_STICKS_CONFIG_DATA_HERE', argumentString)
     # print(line_out)
     file_out.write(line_out)
 

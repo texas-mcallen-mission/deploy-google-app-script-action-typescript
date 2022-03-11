@@ -10,19 +10,9 @@ const GITHUB_DATA = {
     github_branch_ref: "REFNAME" // done
 }
 
+// THIS LINE SHOULD NOT EXIST IN OVERWRITE
 
 const GITHUB_SECRET_DATA = {
-    //
-reportCreator: {
-    docIDs: {
-
-        zoneTemplate: "ZONE_TEMPLATE_ID",
-        distTemplate: "DISTRICT_TEMPLATE_ID",
-        areaTemplate: "AREA_TEMPLATE_ID",
-    },
-    outputDataSheetName: "Data",
-    configPageSheetName: "config",
-    kicDataStoreSheetName: "Data",
-}
-
+/*
+*/
 }

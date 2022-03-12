@@ -91,6 +91,13 @@ jobs:
         if: ${{github.event_name	!= 'schedule' }}
         uses: actions/checkout@v2
 
+      - name: Pull Script Tooling
+        id: pull-python-script
+        uses: actions/checkout@v3
+        with:
+          repository: texas-mcallen-mission/deploy-google-app-script-action-typescript
+          path: deploy-data
+
       - name: Set scriptId in .clasp.json file
         id: set-script-id
         if: ${{ github.event_name	!= 'schedule' && env.SCRIPT_ID }}
@@ -128,7 +135,7 @@ jobs:
 
       - name: update git-info.js Part 2 but in Python
         id: modify-git-info-2-python
-        run: /bin/python3 .github/workflows/add-config.py "$CONFIG_DATA"
+        run: /bin/python3 deploy-data/scripts/add-config.py "$CONFIG_DATA"
         env:
           CONFIG_DATA: ${{ secrets.IN_CONFIG_DATA }}
           # 🐧

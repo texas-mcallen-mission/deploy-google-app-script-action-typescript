@@ -46,4 +46,3 @@ const CONFIG = {
     ...INTERNAL_CONFIG,
     ...GITHUB_SECRET_DATA
     // this way, all the data written to GITHUB_SECRET_DATA just winds up in config
-};

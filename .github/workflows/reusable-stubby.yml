@@ -3,7 +3,7 @@ name: Reusable Deploy Script
 on:
   workflow_dispatch:
   push:
-    branches: [testing-remote-python]
+    branches: [main]
   release:
     types: [published]
   schedule:

@@ -12,7 +12,5 @@ const GITHUB_DATA = {
 
 
 const GITHUB_SECRET_DATA = {
-
     //PYTHON_STICKS_CONFIG_DATA_HERE
-
 }

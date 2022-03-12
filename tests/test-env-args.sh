@@ -11,4 +11,4 @@ reportCreator: {
     kicDataStoreSheetName: "Data",
 }
 '
-/bin/python3 demo-env-args.py "$TEST_ENV_VAR"
+/bin/python3 .github/workflows/add-config.py "$TEST_ENV_VAR"

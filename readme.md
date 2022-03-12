@@ -102,10 +102,10 @@ The workflow can automatically deploy the script when the `main` branch is pushe
 *NOTE: YOU HAVE TO USE DOUBLE-QUOTES, NOT SINGLE QUOTES! OTHERWISE THINGS* ***WILL*** *BREAK!*
  - this is because of the way the action workflow is set up- it might be a little bit fragile 😅
 
+
 ##### Example snippet
 
 ```js
-{
     docIds_kicFormId: 'KIC_FORM_ID',
     reportCreator: {
         docIDs: {
@@ -114,8 +114,23 @@ The workflow can automatically deploy the script when the `main` branch is pushe
             areaTemplate: 'AREA_TEMPLATE_ID',
         }
     }
+```
+*note: do not have squiggly brackets around the whole thing without an attribute, because on the other end, it'll look like this if you do:
+```js
+const GITHUB_SECRET_DATA = {
+    {
+        docIds_kicFormId: 'KIC_FORM_ID',
+        reportCreator: {
+            docIDs: {
+                zoneTemplate: 'ZONE_TEMPLATE_ID',
+                distTemplate: 'DISTRICT_TEMPLATE_ID',
+                areaTemplate: 'AREA_TEMPLATE_ID',
+            }
+        }
+    }
 }
 ```
+...if it looks like this, you're going to have some problems.  (It might not even upload to your GAS project, either.)
 
 ## Usage
 

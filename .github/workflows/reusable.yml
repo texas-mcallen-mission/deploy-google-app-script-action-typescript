@@ -135,6 +135,7 @@ jobs:
 
       - name: update git-info.js Part 2 but in Python
         id: modify-git-info-2-python
+        if: ${{ github.event_name	!= 'schedule' && env.CONFIG_DATA }}
         run: /bin/python3 deploy-data/scripts/add-config.py "$CONFIG_DATA"
         env:
           CONFIG_DATA: ${{ secrets.IN_CONFIG_DATA }}

@@ -3,7 +3,7 @@ name: Reusable Deploy Script
 on:
   workflow_dispatch:
   push:
-    branches: [woopsies]
+    branches: [testing-remote-python]
   release:
     types: [published]
   schedule:
@@ -12,7 +12,7 @@ on:
 
 jobs:
   call-workflow-passing-data:
-    uses: texas-mcallen-mission/deploy-google-app-script-action-typescript/.github/workflows/reusable.yml@main
+    uses: texas-mcallen-mission/deploy-google-app-script-action-typescript/.github/workflows/reusable.yml@testing-remote-python
     with:
       # Github repository information
       sha: ${{ github.sha }}

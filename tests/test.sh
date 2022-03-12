@@ -1,1 +1,0 @@
-/bin/python3 /tests/demo.py

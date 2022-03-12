@@ -1,5 +1,5 @@
 print("Hello, CLI!")
-
+# Please note that the final add-config.py wound up looking a little different to make everything work properly when overwriting a file.
 file_in = open("git-info.js","rt")
 
 file_out = open("git-info-modified.js","wt")

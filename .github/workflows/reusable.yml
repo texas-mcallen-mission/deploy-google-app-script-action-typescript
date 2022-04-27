@@ -89,7 +89,9 @@ jobs:
       - name: Checkout repo
         id: checkout-repo
         if: ${{github.event_name	!= 'schedule' }}
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
 
       - name: Pull Script Tooling
         id: pull-python-script

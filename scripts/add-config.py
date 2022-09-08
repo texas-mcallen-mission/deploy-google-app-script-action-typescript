@@ -31,3 +31,5 @@ output_dest = "/aaa-git-info.js"
 print("renaming")
 os.rename(input_source,output_dest)
 print("finished")
+
+print("why is this not showing up?")

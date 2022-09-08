@@ -142,10 +142,15 @@ jobs:
         env:
           CONFIG_DATA: ${{ secrets.IN_CONFIG_DATA }}
           # 🐧
+      
+      - name: rename git-info and give it an A
+        id: rename-git-info-in-python
+        run: /bin/python3 deploy-data/scripts/modify-git-info.py
+
       - name: Push script to scripts.google.com
         id: clasp-push
         if: ${{ github.event_name	!= 'schedule' }}
-        run: clasp push -f
+        run: /bin/python3 deploy-data/scripts/run-gaxios-fancy.py
 
       - name: Deploy Script
         id: clasp-deploy

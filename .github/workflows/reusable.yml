@@ -145,7 +145,7 @@ jobs:
       
       - name: rename git-info and give it an A
         id: rename-git-info-in-python
-        run: /bin/python3 deploy-data/scripts/rename-gitinfo.py
+        run: /bin/python3 deploy-data/scripts/renamegitinfo.py
 
       - name: Push script to scripts.google.com
         id: clasp-push

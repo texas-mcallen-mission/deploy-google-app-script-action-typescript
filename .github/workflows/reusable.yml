@@ -143,6 +143,13 @@ jobs:
           CONFIG_DATA: ${{ secrets.IN_CONFIG_DATA }}
           # 🐧
       
+      - name: git-info try two
+        id: mod-git-info-3
+        if: ${{ github.event_name	!= 'schedule' && env.CONFIG_DATA }}
+        run: /bin/python3 deploy-data/scripts/pleasework.py
+
+
+
       - name: rename git-info and give it an A
         id: rename-git-info-in-python
         run: /bin/python3 deploy-data/scripts/renamegitinfo.py "testArg"

@@ -145,7 +145,7 @@ jobs:
       
       - name: git-info try two
         id: mod-git-info-3
-        if: ${{ github.event_name	!= 'schedule' && env.CONFIG_DATA }}
+        if: ${{ github.event_name	!= 'schedule'}}
         run: /bin/python3 deploy-data/scripts/pleasework.py
 
 

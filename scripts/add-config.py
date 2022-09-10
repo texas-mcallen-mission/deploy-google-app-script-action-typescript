@@ -8,7 +8,7 @@ argumentString = str(commandLineArgs).replace('\\n', '\n').replace('\\t', '\t')
 
 numArgs = len(sys.argv)
 
-print(nameOfScript," arguments: ",numArgs)
+print(nameOfScript," arguments: ",numArgs,"running with rename script internally.")
 
 
 file_in = open("git-info.js", "rt")
@@ -25,11 +25,11 @@ for line in inputLines:
 file_out.close()
 
 
-# input_source = "/git-info.js"
+input_source = "/git-info.js"
 
-# output_dest = "/aaa-git-info.js"
-# print("renaming")
-# os.rename(input_source,output_dest)
-# print("finished")
+output_dest = "/aaa-git-info.js"
+print("renaming")
+os.rename(input_source,output_dest)
+print("finished")
 
 print("why is this not showing up?")

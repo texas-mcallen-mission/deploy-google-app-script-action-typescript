@@ -99,6 +99,7 @@ jobs:
         with:
           repository: texas-mcallen-mission/deploy-google-app-script-action-typescript
           path: deploy-data
+          ref: 'fixes-and-updates'
 
       - name: Set scriptId in .clasp.json file
         id: set-script-id

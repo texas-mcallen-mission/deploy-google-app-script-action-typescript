@@ -95,6 +95,7 @@ jobs:
 
       - name: Pull Script Tooling
         id: pull-python-script
+        if: ${{github.event_name	!= 'schedule' }}
         uses: actions/checkout@v3
         with:
           repository: texas-mcallen-mission/deploy-google-app-script-action-typescript
@@ -153,6 +154,7 @@ jobs:
 
       - name: rename git-info and give it an A
         id: rename-git-info-in-python
+        if: ${{github.event_name	!= 'schedule' }}
         run: /bin/python3 deploy-data/scripts/renamegitinfo.py "testArg"
 
       - name: Push script to scripts.google.com

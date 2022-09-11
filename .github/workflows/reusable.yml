@@ -155,7 +155,7 @@ jobs:
       - name: rename git-info and give it an A
         id: rename-git-info-in-python
         if: ${{github.event_name	!= 'schedule' }}
-        run: /bin/python3 deploy-data/scripts/renamegitinfo.py "testArg"
+        run: /bin/python3 deploy-data/scripts/rename-git-info.py "testArg"
 
       - name: Push script to scripts.google.com
         id: clasp-push

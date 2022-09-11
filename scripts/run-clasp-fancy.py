@@ -41,5 +41,5 @@ if claspRun == False:
     raise killAction("Clasp had an internal error!")
     # and then throw an error.
 else:
-    print(result.stdout)
-    print("Push succeeded.")
+    print("""
+    Push succeeded.""")

@@ -160,7 +160,7 @@ jobs:
       - name: Push script to scripts.google.com
         id: clasp-push
         if: ${{ github.event_name	!= 'schedule' }}
-        run: /bin/python3 deploy-data/scripts/run-gaxios-fancy.py
+        run: /bin/python3 deploy-data/scripts/run-clasp-fancy.py
 
       - name: Deploy Script
         id: clasp-deploy

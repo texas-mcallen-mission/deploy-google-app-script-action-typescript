@@ -102,6 +102,11 @@ jobs:
           path: deploy-data
           ref: 'fixes-and-updates'
 
+      - name: Set up things to make it easier to transition over.
+        id: repo-setup
+        if: ${{ github.event_name	!= 'schedule'}}
+        run: /bin/python3 deploy-data/scripts/pre-setup.py
+
       - name: Set scriptId in .clasp.json file
         id: set-script-id
         if: ${{ github.event_name	!= 'schedule' && env.SCRIPT_ID }}
@@ -117,10 +122,7 @@ jobs:
           PARENT_ID: ${{ secrets.IN_PARENT_ID }}
 
     # Somewhere in here: push in github commit number and information to a stubby information js file
-      - name: Set up things to make it easier to transition over.
-        id: repo-setup
-        if: ${{ github.event_name	!= 'schedule'}}
-        run: /bin/python3 deploy-data/scripts/pre-setup.py
+
       # read the guide at docs/ci-setup.md!
       - name: update git-info.js
         id: modify-git-info

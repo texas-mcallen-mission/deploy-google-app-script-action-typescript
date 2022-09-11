@@ -22,9 +22,9 @@ claspJsonPath = "clasp.json"
 reqFileDir = "deploy-data/required-files/"
 
 if os.path.exists(claspJsonPath) == False:
-    shutil.copy2(claspJsonPath,reqFileDir+claspJsonPath)
+    shutil.copy2(reqFileDir+claspJsonPath, claspJsonPath)
 
 gitInfo_path =  "git-info.js"
 if os.path.exists(gitInfo_path) == False:
-    shutil.copy2(gitInfo_path,reqFileDir+gitInfo_path)
+    shutil.copy2(reqFileDir+gitInfo_path, gitInfo_path)
 

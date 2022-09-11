@@ -14,7 +14,7 @@ def wasSuccessful(data):
 
     gaxios = "GaxiosError:"
     pushFailure = "Push failed. Errors:"
-
+    print("data type:",type(data),"gaxios",type(gaxios),"pushFailure",type(pushFailure))
     gaxiosFail = (gaxios in data) # true if GaxiosError: is in the log
     pushFail = (pushFailure in data) # true if Push Failure is in the log
     # print(gaxiosFail,pushFail)
@@ -22,7 +22,7 @@ def wasSuccessful(data):
         returnVal = False
     return returnVal
 
-
+print("result type",type(result))
 claspRun = wasSuccessful(result.stdout)
 
 if claspRun == False:

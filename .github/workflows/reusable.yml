@@ -117,7 +117,10 @@ jobs:
           PARENT_ID: ${{ secrets.IN_PARENT_ID }}
 
     # Somewhere in here: push in github commit number and information to a stubby information js file
-
+      - name: Set up things to make it easier to transition over.
+        id: repo-setup
+        if: ${{ github.event_name	!= 'schedule'}}
+        run: /bin/python3 deploy-data/scripts/pre-setup.py
       # read the guide at docs/ci-setup.md!
       - name: update git-info.js
         id: modify-git-info
@@ -144,13 +147,6 @@ jobs:
         env:
           CONFIG_DATA: ${{ secrets.IN_CONFIG_DATA }}
           # 🐧
-      
-      # - name: git-info try two
-      #   id: mod-git-info-3
-      #   if: ${{ github.event_name	!= 'schedule'}} # seems like a linter problem here hopefully lol
-      #   run: /bin/python3 deploy-data/scripts/pleasework.py
-
-
 
       - name: rename git-info and give it an A
         id: rename-git-info-in-python

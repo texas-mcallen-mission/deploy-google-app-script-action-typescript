@@ -23,7 +23,9 @@ def wasSuccessful(data):
     return returnVal
 
 print("result type",type(result))
-claspRun = wasSuccessful(result.stdout)
+encoding = 'utf-8'
+parsedResult = str(result.stdout,encoding)
+claspRun = wasSuccessful(parsedResult)
 
 if claspRun == False:
     print("throwing an error")

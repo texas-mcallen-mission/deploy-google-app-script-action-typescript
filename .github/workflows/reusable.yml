@@ -145,10 +145,10 @@ jobs:
           CONFIG_DATA: ${{ secrets.IN_CONFIG_DATA }}
           # 🐧
       
-      - name: git-info try two
-        id: mod-git-info-3
-        if: ${{ github.event_name	!= 'schedule'}}
-        run: /bin/python3 deploy-data/scripts/pleasework.py
+      # - name: git-info try two
+      #   id: mod-git-info-3
+      #   if: ${{ github.event_name	!= 'schedule'}} # seems like a linter problem here hopefully lol
+      #   run: /bin/python3 deploy-data/scripts/pleasework.py
 
 
 

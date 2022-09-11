@@ -28,3 +28,4 @@ gitInfo_path =  "git-info.js"
 if os.path.exists(gitInfo_path) == False:
     shutil.copy2(reqFileDir+gitInfo_path, gitInfo_path)
 
+# WYLO: Figuring out why this isn't copying files over to where I want them to be???

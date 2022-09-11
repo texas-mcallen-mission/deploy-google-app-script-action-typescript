@@ -29,13 +29,15 @@ def wasSuccessful(data):
     return returnVal
 
 # print("result type",type(result))
-encoding = 'utf-16'
+encoding = 'utf-8'
 parsedResult = str(result.stdout,encoding)
 claspRun = wasSuccessful(parsedResult)
 
+# *might* add some extra parsing here to make the result easier to read?
+
+print(parsedResult)
 if claspRun == False:
     print("throwing an error")
-    print(parsedResult)
     raise killAction("Clasp had an internal error!")
     # and then throw an error.
 else:

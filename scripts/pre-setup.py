@@ -1,6 +1,6 @@
 import os
 import shutil
-print("placeholder ATM")
+print("setting things up.")
 
 checklist = """
 Things to check for:
@@ -17,15 +17,36 @@ Could also stick an empty .gs file in there as a watermark, lol?
 Basically I need to find *everything* necessary to make an empty repo and push it and make a local, basic copy.
 """
 
-claspJsonPath = "clasp.json"
+claspIg = ".claspignore"
+deployDataLine = "deploy-data/**"
+
+files = ["clasp.json", "git-info.js",
+         "tsconfig.json", "appsscript.json", claspIg]
+
+addedFiles = []
+
 
 reqFileDir = "deploy-data/required-files/"
 
-if os.path.exists(claspJsonPath) == False:
-    shutil.copy2(reqFileDir+claspJsonPath, claspJsonPath)
+for entry in files:
+    if os.path.exists(entry) == False and os.path.exists(reqFileDir+entry) == True:
+        shutil.copy2(reqFileDir+entry, entry)
+        addedFiles.append(entry)
 
-gitInfo_path =  "git-info.js"
-if os.path.exists(gitInfo_path) == False:
-    shutil.copy2(reqFileDir+gitInfo_path, gitInfo_path)
 
-# WYLO: Figuring out why this isn't copying files over to where I want them to be???
+# then run code to modify claspignore?
+if addedFiles.count(claspIg) == 0:  # this is like array.includes, I guess?
+    # pipe thingies in
+    print("modifying"+claspIg)
+    claspIgnoreFile = open(claspIg, mode="r+")
+    print("pre-mod:", claspIgnoreFile.read())
+    print(deployDataLine, file=claspIgnoreFile) # adds newline
+    claspIgnoreFile.close()
+
+
+if len(addedFiles) > 0:
+    # spread operator thingy to get rid of the brackets.  Super neat!
+    print("Completed- added ", *addedFiles)
+else:
+    print("Completeted, no new files added.")
+

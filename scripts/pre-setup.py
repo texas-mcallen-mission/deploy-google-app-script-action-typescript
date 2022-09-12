@@ -20,8 +20,7 @@ Basically I need to find *everything* necessary to make an empty repo and push i
 claspIg = ".claspignore"
 deployDataLine = "deploy-data/**"
 
-files = ["clasp.json", "git-info.js",
-         "tsconfig.json", "appsscript.json", claspIg]
+files = [".clasp.json", "git-info.js", "tsconfig.json", "appsscript.json", claspIg]
 
 addedFiles = []
 

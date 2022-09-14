@@ -10,8 +10,10 @@ import subprocess
 class killAction(Exception):
     pass
 
-# the thing that runs clasp pushing
+# the thing that runs clasp pushing itself
 result = subprocess.run(["clasp","push","-f"],stdout=subprocess.PIPE)
+
+# the rest of this parses the output from CLASP.
 
 # wrote this as a function so that I could write tests for it
 def wasSuccessful(data):
@@ -20,15 +22,12 @@ def wasSuccessful(data):
 
     gaxios = "GaxiosError:"
     pushFailure = "Push failed. Errors:"
-    # print("data type:",type(data),"gaxios",type(gaxios),"pushFailure",type(pushFailure))
     gaxiosFail = (gaxios in data) # true if GaxiosError: is in the log
     pushFail = (pushFailure in data) # true if Push Failure is in the log
-    # print(gaxiosFail,pushFail)
     if gaxiosFail or pushFail:
         returnVal = False
     return returnVal
 
-# print("result type",type(result))
 encoding = 'utf-8'
 parsedResult = str(result.stdout,encoding)
 claspRun = wasSuccessful(parsedResult)
@@ -37,9 +36,9 @@ claspRun = wasSuccessful(parsedResult)
 
 print(parsedResult)
 if claspRun == False:
-    print("throwing an error")
-    raise killAction("Clasp had an internal error!")
     # and then throw an error.
+    raise killAction("""
+    Clasp had an internal error!""")
 else:
     print("""
     Push succeeded.""")

@@ -155,6 +155,7 @@ jobs:
         if: ${{github.event_name	!= 'schedule' }}
         run: /bin/python3 deploy-data/scripts/rename-git-info.py "testArg"
 
+# updated in fixes-and-updates branch to catch errors.
       - name: Push script to scripts.google.com
         id: clasp-push
         if: ${{ github.event_name	!= 'schedule' }}

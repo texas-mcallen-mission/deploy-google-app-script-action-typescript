@@ -23,13 +23,3 @@ for line in inputLines:
     file_out.write(line_out)
 
 file_out.close()
-
-
-# input_source = "/git-info.js"
-
-# output_dest = "/aaa-git-info.js"
-# print("renaming")
-# os.rename(input_source,output_dest)
-# print("finished")
-
-# print("why is this not showing up?")

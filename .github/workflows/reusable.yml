@@ -95,10 +95,17 @@ jobs:
 
       - name: Pull Script Tooling
         id: pull-python-script
+        if: ${{github.event_name	!= 'schedule' }}
         uses: actions/checkout@v3
         with:
           repository: texas-mcallen-mission/deploy-google-app-script-action-typescript
           path: deploy-data
+          ref: 'main'
+
+      - name: Set up things to make it easier to transition over.
+        id: repo-setup
+        if: ${{ github.event_name	!= 'schedule'}}
+        run: /bin/python3 deploy-data/scripts/pre-setup.py
 
       - name: Set scriptId in .clasp.json file
         id: set-script-id
@@ -142,10 +149,17 @@ jobs:
         env:
           CONFIG_DATA: ${{ secrets.IN_CONFIG_DATA }}
           # 🐧
+
+      - name: rename git-info and give it an A
+        id: rename-git-info-in-python
+        if: ${{github.event_name	!= 'schedule' }}
+        run: /bin/python3 deploy-data/scripts/rename-git-info.py "testArg"
+
+# updated in fixes-and-updates branch to catch errors.
       - name: Push script to scripts.google.com
         id: clasp-push
         if: ${{ github.event_name	!= 'schedule' }}
-        run: clasp push -f
+        run: /bin/python3 deploy-data/scripts/run-clasp-fancy.py
 
       - name: Deploy Script
         id: clasp-deploy

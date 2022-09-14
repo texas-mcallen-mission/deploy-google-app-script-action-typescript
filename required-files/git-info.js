@@ -1,4 +1,6 @@
 // the contents of this file get find-replaced using sed at action runtime- please be careful in here!
+// Hey, you should consider making a permanent copy of this and deleting this line!
+
 const GITHUB_DATA = {
     commit_sha:"COMMITSHA", // done
     action_event_name: "EVENTNAME", // done

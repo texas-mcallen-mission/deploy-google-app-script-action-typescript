@@ -1,4 +1,5 @@
-# Google AppsScript Codebase Deployifier
+# Google AppsScript Deployment Manager
+
 <!--  WYLO: FIGURE OUT A GOOD NAME FOR THIS PROJECT -->
 
 *A fairly simple and pretty robust way to get your code from GitHub to a Google AppsScript project that all happens in the cloud.*

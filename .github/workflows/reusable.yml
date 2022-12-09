@@ -74,12 +74,19 @@ jobs:
           echo ::add-mask::$(tr -d '\n\r' < ~/.clasprc.json)
           echo "CLASPRC_JSON_FILE=$(tr -d '\n\r' < ~/.clasprc.json)" >> $GITHUB_ENV        
       
-      - name: Save CLASPRC_JSON_FILE environment variable to CLASPRC_JSON repo secret
-        id: set-clasprc-secret
-        if: ${{ env.CLASPRC_JSON_FILE != env.CLASPRC_JSON_SECRET  }}
-        uses: hmanzur/actions-set-secret@v2.0.0
-        env:
-          CLASPRC_JSON_SECRET: ${{ secrets.IN_CLASPRC }}
+      # - name: Save CLASPRC_JSON_FILE environment variable to CLASPRC_JSON repo secret
+      #   id: set-clasprc-secret
+      #   if: ${{ env.CLASPRC_JSON_FILE != env.CLASPRC_JSON_SECRET  }}
+      #   uses: hmanzur/actions-set-secret@v2.0.0
+      #   env:
+      #     CLASPRC_JSON_SECRET: ${{ secrets.IN_CLASPRC }}
+      #   with:
+      #     name: "CLASPRC_JSON"
+      #     value: ${{ env.CLASPRC_JSON_FILE }}
+      #     repository: ${{ github.repository }}
+      #     token: ${{ secrets.IN_REPO_ACCESS_TOKEN }}
+      - name: Set Action Environment Secret But Hopefully Updated
+        uses: mmercan/actions-set-secret@v/4.0.0
         with:
           name: "CLASPRC_JSON"
           value: ${{ env.CLASPRC_JSON_FILE }}

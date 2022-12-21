@@ -100,7 +100,7 @@ runs:
         value: ${{ env.CLASPRC_JSON_FILE }}
         repository: ${{ github.repository }}
         token: ${{ inputs.IN_REPO_ACCESS_TOKEN }}
-      shell: bash
+      # shell: bash
 
     - name: Checkout repo
       id: checkout-repo

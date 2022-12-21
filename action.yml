@@ -78,7 +78,7 @@ runs:
       id: write-clasprc
       run: echo "$CLASPRC_JSON_SECRET" >> ~/.clasprc.json
       env:
-        CLASPRC_JSON_SECRET: ${{ secrets.IN_CLASPRC_JSON }}
+        CLASPRC_JSON_SECRET: ${{ inputs.IN_CLASPRC_JSON }}
       shell: bash
 
     - name: Check clasp login status
@@ -99,7 +99,7 @@ runs:
         name: "CLASPRC_JSON"
         value: ${{ env.CLASPRC_JSON_FILE }}
         repository: ${{ github.repository }}
-        token: ${{ secrets.IN_REPO_ACCESS_TOKEN }}
+        token: ${{ inputs.IN_REPO_ACCESS_TOKEN }}
       shell: bash
 
     - name: Checkout repo
@@ -129,7 +129,7 @@ runs:
       if: ${{ github.event_name	!= 'schedule' && env.SCRIPT_ID }}
       run: jq '.scriptId = "${{ env.SCRIPT_ID }}"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
       env:
-        SCRIPT_ID: ${{ secrets.IN_SCRIPT_ID }}
+        SCRIPT_ID: ${{ inputs.IN_SCRIPT_ID }}
       shell: bash
 
     - name: Set parentId in .clasp.json file
@@ -137,7 +137,7 @@ runs:
       if: ${{ github.event_name	!= 'schedule' && env.PARENT_ID }}
       run: jq '.parentId = "[${{ env.PARENT_ID }}]"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
       env:
-        PARENT_ID: ${{ secrets.IN_PARENT_ID }}
+        PARENT_ID: ${{ inputs.IN_PARENT_ID }}
       shell: bash
 
   # Somewhere in here: push in github commit number and information to a stubby information js file
@@ -167,7 +167,7 @@ runs:
       if: ${{ github.event_name	!= 'schedule' && env.CONFIG_DATA }}
       run: /bin/python3 deploy-data/scripts/add-config.py "$CONFIG_DATA"
       env:
-        CONFIG_DATA: ${{ secrets.IN_CONFIG_DATA }}
+        CONFIG_DATA: ${{ inputs.IN_CONFIG_DATA }}
         # 🐧
       shell: bash
 
@@ -189,5 +189,5 @@ runs:
       if: ${{env.DEPLOYMENT_ID && (github.event_name == 'release' || (github.event_name == 'push' && github.ref == 'refs/heads/main'))}}
       run: clasp deploy -i "$DEPLOYMENT_ID" -d "$GITHUB_REF"
       env:
-        DEPLOYMENT_ID: ${{ secrets.IN_DEPLOYMENT_ID }}
+        DEPLOYMENT_ID: ${{ inputs.IN_DEPLOYMENT_ID }}
       shell: bash

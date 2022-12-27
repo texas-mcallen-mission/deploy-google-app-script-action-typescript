@@ -94,7 +94,7 @@ runs:
       shell: bash        
 
     - name: Set Action Environment Secret
-      uses: texas-mcallen-mission/actions-secret-modifier@v2.0.2-dev
+      uses: texas-mcallen-mission/actions-secret-modifier@v2.0.2
       with:
         name: "CLASPRC_JSON"
         value: ${{ env.CLASPRC_JSON_FILE }}

@@ -102,7 +102,7 @@ runs:
       shell: bash        
 
     - name: Set Action Environment Secret
-      if: IN_
+      # if: WYLO: Switching between this and an org secret
       uses: texas-mcallen-mission/actions-secret-modifier@v2.0.2
       with:
         name: ${{ inputs.CLASPRC_TOKEN_NAME}}

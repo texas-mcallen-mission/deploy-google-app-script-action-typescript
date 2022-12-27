@@ -5,32 +5,40 @@ author: harrierpigeon for texas-mcallen-mission
 
 inputs:
 # secrets:
-  # CLASPRC_JSON_SECRET: ${{ secrets.IN_CLASPRC_JSON }}
-  IN_CLASPRC_JSON:
+  # CLASPRC_JSON_SECRET: ${{ secrets.CLASP_TOKEN_VALUE }}
+  CLASP_TOKEN_VALUE:
     description: '' 
     required: true
     # type: string
-  # token: ${{ secrets.IN_REPO_ACCESS_TOKEN }}
-  IN_REPO_ACCESS_TOKEN:
+  # token: ${{ secrets.REPO_ACCESS_TOKEN }}
+  CLASP_TOKEN_NAME:
+    description: 'clasp.rc Token name, defaults to "CLASPRC_JSON" - used to update the access token and keep it alive.'
+    required: false
+    default: 'CLASPRC_JSON'
+  REPO_ACCESS_TOKEN:
     description: 'personal access token that has secrets modifying scopes'
     required: true
-  # DEPLOYMENT_ID: ${{ secrets.IN_DEPLOYMENT_ID }}
-  IN_DEPLOYMENT_ID:
+  # DEPLOYMENT_ID: ${{ secrets.DEPLOYMENT_ID }}
+  USES_ORG_SECRET:
+    description: 'Updates org secret instead of repo secret if set to true'
+    required: false
+    default: false
+  DEPLOYMENT_ID:
     description: 'for larger deployments and version control inside of gas'
     required: false
     # type: string
-  # SCRIPT_ID: ${{secrets.IN_SCRIPT_ID}}
-  IN_SCRIPT_ID:
+  # SCRIPT_ID: ${{secrets.SCRIPT_ID}}
+  SCRIPT_ID:
     description: 'script id for script to be modified'
     required: true # but ***STRONGLY*** RECOMMENDED!
     # type: string
-  # PARENT_ID: ${{secrets.IN_PARENT_ID}}
-  IN_PARENT_ID:
+  # PARENT_ID: ${{secrets.PARENT_ID}}
+  PARENT_ID:
     description: 'parent id: container document of script'
     required: false
     # type: string
   # CONFIG_DATA: ${{ secrets.IN_CONFIG_JSON }}
-  IN_CONFIG_DATA:
+  CONFIG_DATA:
     description: 'json-based config data to pass into git-info.js'
     required: false
     # type: string
@@ -78,7 +86,7 @@ runs:
       id: write-clasprc
       run: echo "$CLASPRC_JSON_SECRET" >> ~/.clasprc.json
       env:
-        CLASPRC_JSON_SECRET: ${{ inputs.IN_CLASPRC_JSON }}
+        CLASPRC_JSON_SECRET: ${{ inputs.CLASP_TOKEN_VALUE }}
       shell: bash
 
     - name: Check clasp login status
@@ -94,13 +102,13 @@ runs:
       shell: bash        
 
     - name: Set Action Environment Secret
+      if: IN_
       uses: texas-mcallen-mission/actions-secret-modifier@v2.0.2
       with:
-        name: "CLASPRC_JSON"
+        name: ${{ inputs.CLASPRC_TOKEN_NAME}}
         value: ${{ env.CLASPRC_JSON_FILE }}
         repository: ${{ github.repository }}
-        token: ${{ inputs.IN_REPO_ACCESS_TOKEN }}
-      # shell: bash
+        token: ${{ inputs.REPO_ACCESS_TOKEN }}
 
     - name: Checkout repo
       id: checkout-repo
@@ -129,7 +137,7 @@ runs:
       if: ${{ github.event_name	!= 'schedule' && env.SCRIPT_ID }}
       run: jq '.scriptId = "${{ env.SCRIPT_ID }}"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
       env:
-        SCRIPT_ID: ${{ inputs.IN_SCRIPT_ID }}
+        SCRIPT_ID: ${{ inputs.SCRIPT_ID }}
       shell: bash
 
     - name: Set parentId in .clasp.json file
@@ -137,7 +145,7 @@ runs:
       if: ${{ github.event_name	!= 'schedule' && env.PARENT_ID }}
       run: jq '.parentId = "[${{ env.PARENT_ID }}]"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
       env:
-        PARENT_ID: ${{ inputs.IN_PARENT_ID }}
+        PARENT_ID: ${{ inputs.PARENT_ID }}
       shell: bash
 
   # Somewhere in here: push in github commit number and information to a stubby information js file
@@ -167,7 +175,7 @@ runs:
       if: ${{ github.event_name	!= 'schedule' && env.CONFIG_DATA }}
       run: /bin/python3 deploy-data/scripts/add-config.py "$CONFIG_DATA"
       env:
-        CONFIG_DATA: ${{ inputs.IN_CONFIG_DATA }}
+        CONFIG_DATA: ${{ inputs.CONFIG_DATA }}
         # 🐧
       shell: bash
 
@@ -189,5 +197,5 @@ runs:
       if: ${{env.DEPLOYMENT_ID && (github.event_name == 'release' || (github.event_name == 'push' && github.ref == 'refs/heads/main'))}}
       run: clasp deploy -i "$DEPLOYMENT_ID" -d "$GITHUB_REF"
       env:
-        DEPLOYMENT_ID: ${{ inputs.IN_DEPLOYMENT_ID }}
+        DEPLOYMENT_ID: ${{ inputs.DEPLOYMENT_ID }}
       shell: bash

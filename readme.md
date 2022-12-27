@@ -15,3 +15,22 @@ Part of the reason that we're using this instead of something that uses Google C
 ## Getting Started
 
  - see the wiki, or [the demo repo](https://GitHub.com/texas-mcallen-mission/deploy-demo/)
+
+# Inputs
+
+| Input Value | Description | Required | Default Value |
+| :---: | :--- | :---: | :---: |
+| CLASP_TOKEN_VALUE |  |  true |  |
+| CLASP_TOKEN_NAME | ``clasp.rc`` token name - used to update the access token and keep it alive. |  false | ``CLASPRC_JSON`` |
+| REPO_ACCESS_TOKEN | personal access token that has secrets modifying scopes |  true |  |
+| USES_ORG_SECRET | Updates org secret instead of repo secret if set to true |  false | FALSE |
+| DEPLOYMENT_ID | for larger deployments and version control inside of gas |  false |  |
+| SCRIPT_ID | script id for script to be modified |  true |  |
+| PARENT_ID | parent id |  false |  |
+| CONFIG_DATA | json-based config data to pass into git-info.js |  false |  |
+| sha | hash of git commit. |  false |  |
+| event_name | if scheduled, used to avoid uploading code and just refresh clasprc |  false |  |
+| actor | for git info |  false |  |
+| job | for git info |  false |  |
+| repository | for git info |  false |  |
+| ref_name | for git info |  false |  |

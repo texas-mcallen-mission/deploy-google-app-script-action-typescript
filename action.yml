@@ -107,9 +107,9 @@ runs:
     
     -name: print org name
       id: print-org-name-temporary
-      run: echo "$testy" && echo "$test2"
+      run: echo "$testy" # && echo "$test2"
       env:
-        test2: ${{ github.event.repository.name }}
+   #     test2: ${{ github.event.repository.name }}
         testy: ${{ github.org.login }}
       shell: bash
 

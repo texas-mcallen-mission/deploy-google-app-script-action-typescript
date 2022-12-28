@@ -23,6 +23,10 @@ inputs:
     description: 'Updates org secret instead of repo secret if set to true'
     required: false
     default: false
+  ORG_VISIBILITY:
+    description: 'repositories that are allowed to use a secret.  Default all.'
+    required: false
+    default: 'all'
   DEPLOYMENT_ID:
     description: 'for larger deployments and version control inside of gas'
     required: false
@@ -101,14 +105,26 @@ runs:
         echo "CLASPRC_JSON_FILE=$(tr -d '\n\r' < ~/.clasprc.json)" >> $GITHUB_ENV
       shell: bash        
 
-    - name: Set Action Environment Secret
+    - name: Set Repository Action Secret
       # if: WYLO: Switching between this and an org secret
+      if: ${{ inputs.USES_ORG_SECRET }} == false
       uses: texas-mcallen-mission/actions-secret-modifier@v2.0.2
       with:
-        name: ${{ inputs.CLASPRC_TOKEN_NAME}}
+        name: ${{ inputs.CLASPRC_TOKEN_NAME }}
         value: ${{ env.CLASPRC_JSON_FILE }}
         repository: ${{ github.repository }}
         token: ${{ inputs.REPO_ACCESS_TOKEN }}
+
+    - name: Set Org Action Secret
+      if: ${{ inputs.USES_ORG_SECRET }} == true
+      uses: texas-mcallen-mission/actions-secret-modifier@v2.0.2
+      with:
+        name: ${{ inputs.CLASPRC_TOKEN_NAME }}
+        value: ${{ env.CLASPRC_JSON_FILE }}
+        token: ${{ inputs.REPO_ACCESS_TOKEN }}
+        org: true
+        org-name: ${{ GITHUB_REPOSITORY_OWNER }}
+        visibility: ${{ inputs.ORG_VISIBILITY }}
 
     - name: Checkout repo
       id: checkout-repo

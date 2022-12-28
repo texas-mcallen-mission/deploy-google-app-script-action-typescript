@@ -6,15 +6,15 @@ author: harrierpigeon for texas-mcallen-mission
 inputs:
 # secrets:
   # CLASPRC_JSON_SECRET: ${{ secrets.CLASP_TOKEN_VALUE }}
+  CLASP_TOKEN_NAME:
+    description: 'clasp.rc Token name, defaults to "CLASPRC_JSON" - used to update the access token and keep it alive.'
+    required: false
+    default: 'CLASPRC_JSON'
   CLASP_TOKEN_VALUE:
     description: '' 
     required: true
     # type: string
   # token: ${{ secrets.REPO_ACCESS_TOKEN }}
-  CLASP_TOKEN_NAME:
-    description: 'clasp.rc Token name, defaults to "CLASPRC_JSON" - used to update the access token and keep it alive.'
-    required: false
-    default: 'CLASPRC_JSON'
   REPO_ACCESS_TOKEN:
     description: 'personal access token that has secrets modifying scopes'
     required: true
@@ -108,7 +108,7 @@ runs:
     - name: Set Repository Action Secret
       # if: WYLO: Switching between this and an org secret
       if: ${{ inputs.USES_ORG_SECRET }} == false
-      uses: texas-mcallen-mission/actions-secret-modifier@v2.0.2
+      uses: texas-mcallen-mission/actions-secret-modifier@v2.0.3
       with:
         name: ${{ inputs.CLASPRC_TOKEN_NAME }}
         value: ${{ env.CLASPRC_JSON_FILE }}
@@ -117,7 +117,7 @@ runs:
 
     - name: Set Org Action Secret
       if: ${{ inputs.USES_ORG_SECRET }} == true
-      uses: texas-mcallen-mission/actions-secret-modifier@v2.0.2
+      uses: texas-mcallen-mission/actions-secret-modifier@v2.0.3
       with:
         name: ${{ inputs.CLASPRC_TOKEN_NAME }}
         value: ${{ env.CLASPRC_JSON_FILE }}

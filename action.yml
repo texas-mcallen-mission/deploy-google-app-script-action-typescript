@@ -120,7 +120,7 @@ runs:
       with:
         name: ${{ inputs.CLASPRC_TOKEN_NAME }}
         value: ${{ env.CLASPRC_JSON_FILE }}
-        repository: ${{ github.event.repository.name }}
+        repository: ${{ inputs.repository }} #${{ github.event.repository.name }}
         token: ${{ inputs.REPO_ACCESS_TOKEN }}
 
     - name: Set Org Action Secret

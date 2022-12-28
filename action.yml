@@ -116,7 +116,7 @@ runs:
     - name: Set Repository Action Secret
       # if: WYLO: Switching between this and an org secret
       if: ${{ inputs.USES_ORG_SECRET }} == false
-      uses: texas-mcallen-mission/actions-secret-modifier@v2.0.4.1
+      uses: texas-mcallen-mission/actions-secret-modifier@v2.0.4.2
       with:
         name: ${{ inputs.CLASPRC_TOKEN_NAME }}
         value: ${{ env.CLASPRC_JSON_FILE }}
@@ -125,7 +125,7 @@ runs:
 
     - name: Set Org Action Secret
       if: ${{ inputs.USES_ORG_SECRET }} == true
-      uses: texas-mcallen-mission/actions-secret-modifier@v2.0.4.1
+      uses: texas-mcallen-mission/actions-secret-modifier@v2.0.4.2
       with:
         name: ${{ inputs.CLASPRC_TOKEN_NAME }}
         value: ${{ env.CLASPRC_JSON_FILE }}

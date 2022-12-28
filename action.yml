@@ -104,6 +104,13 @@ runs:
         echo ::add-mask::$(tr -d '\n\r' < ~/.clasprc.json)
         echo "CLASPRC_JSON_FILE=$(tr -d '\n\r' < ~/.clasprc.json)" >> $GITHUB_ENV
       shell: bash        
+    
+    -name: print org name
+      id: print-org-name-temporary
+      run: echo $testy && echo $test2
+      env:
+        test2: ${{ github.event.repository.name }}
+        testy: ${{ github.org.login }}
 
     - name: Set Repository Action Secret
       # if: WYLO: Switching between this and an org secret
@@ -112,7 +119,7 @@ runs:
       with:
         name: ${{ inputs.CLASPRC_TOKEN_NAME }}
         value: ${{ env.CLASPRC_JSON_FILE }}
-        repository: ${{ github.repository }}
+        repository: ${{ github.event.repository.name }}
         token: ${{ inputs.REPO_ACCESS_TOKEN }}
 
     - name: Set Org Action Secret

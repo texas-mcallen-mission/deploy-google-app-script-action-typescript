@@ -9,7 +9,7 @@ inputs:
   CLASP_TOKEN_NAME:
     description: 'clasp.rc Token name, defaults to "CLASPRC_JSON" - used to update the access token and keep it alive.'
     required: false
-    default: 'CLASPRC_JSON'
+    default: CLASPRC_JSON
   CLASP_TOKEN_VALUE:
     description: '' 
     required: true

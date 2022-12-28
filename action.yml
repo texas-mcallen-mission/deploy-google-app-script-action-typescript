@@ -107,10 +107,11 @@ runs:
     
     -name: print org name
       id: print-org-name-temporary
-      run: echo $testy && echo $test2
+      run: echo "$testy" && echo "$test2"
       env:
         test2: ${{ github.event.repository.name }}
         testy: ${{ github.org.login }}
+      shell: bash
 
     - name: Set Repository Action Secret
       # if: WYLO: Switching between this and an org secret

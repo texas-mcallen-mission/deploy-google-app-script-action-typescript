@@ -25,9 +25,9 @@ Part of the reason that we're using this instead of something that uses Google C
 | REPO_ACCESS_TOKEN | personal access token that has secrets modifying scopes |  true |  |
 | USES_ORG_SECRET | Updates org secret instead of repo secret if set to true |  false | FALSE |
 | ORG_VISIBILITY | only used if ``USES_ORG_SECRET`` is true, for changing what repositories have access to the value. | false | ``all`` |
-| DEPLOYMENT_ID | for larger deployments and version control inside of gas |  false |  |
 | SCRIPT_ID | script id for script to be modified |  true |  |
 | PARENT_ID | parent id |  false |  |
+| DEPLOYMENT_ID | for larger deployments and version control inside of gas |  false |  |
 | CONFIG_DATA | json-based config data to pass into git-info.js |  false |  |
 | sha | hash of git commit. |  false |  |
 | event_name | if scheduled, used to avoid uploading code and just refresh clasprc |  false |  |

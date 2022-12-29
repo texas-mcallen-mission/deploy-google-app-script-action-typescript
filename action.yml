@@ -109,7 +109,7 @@ runs:
 
     # - name: print out this stuff
     #   id: print-out-script-for-testing
-    #   run: echo | cat deploy-data/scripts/add-config.py
+    #   run: cat deploy-data/scripts/add-config.py | echo
     #   shell: bash
 
     - name: Set up things to make it easier to transition over.

@@ -104,23 +104,15 @@ runs:
         echo ::add-mask::$(tr -d '\n\r' < ~/.clasprc.json)
         echo "CLASPRC_JSON_FILE=$(tr -d '\n\r' < ~/.clasprc.json)" >> $GITHUB_ENV
       shell: bash        
-    
-  #   -name: print org name
-  #     id: print-org-name-temporary
-  #     run: echo "$testy" # && echo "$test2"
-  #     env:
-  #  #     test2: ${{ github.event.repository.name }}
-  #       testy: ${{ github.org.login }}
-  #     shell: bash
+
 
     - name: Set Repository Action Secret
-      # if: WYLO: Switching between this and an org secret
       if: ${{ inputs.USES_ORG_SECRET  == 'false' }}
       uses: texas-mcallen-mission/actions-secret-modifier@v2.0.4.2
       with:
-        name: ${{ inputs.CLASP_TOKEN_NAME }} # '${{ inputs.CLASP_TOKEN_NAME }}'
+        name: ${{ inputs.CLASP_TOKEN_NAME }}
         value: ${{ env.CLASPRC_JSON_FILE }}
-        repository: ${{ inputs.repository }} #${{ github.event.repository.name }}
+        repository: ${{ github.repository }} # ${{ inputs.repository }} #${{ github.event.repository.name }}
         token: ${{ inputs.REPO_ACCESS_TOKEN }}
 
     - name: Set Org Action Secret

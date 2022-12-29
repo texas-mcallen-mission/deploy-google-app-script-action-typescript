@@ -107,6 +107,11 @@ runs:
         path: deploy-data
         ref: 'testing-actions-caching' #${{ env.env-test }} # ${{ github.action_ref }} # 'main'
 
+    - name: print out this stuff
+      id: print-out-script-for-testing
+      run: cat deploy-data/scripts/add-config.py
+      shell: bash
+
     - name: Set up things to make it easier to transition over.
       id: repo-setup
       if: ${{ github.event_name	!= 'schedule'}}

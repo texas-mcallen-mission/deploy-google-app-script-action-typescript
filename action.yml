@@ -131,7 +131,7 @@ runs:
         value: ${{ env.CLASPRC_JSON_FILE }}
         token: ${{ inputs.REPO_ACCESS_TOKEN }}
         org: true
-        org-name: ${{ env.GITHUB_REPOSITORY_OWNER }}
+        org-name: ${{ github.repository_owner }}
         visibility: ${{ inputs.ORG_VISIBILITY }}
 
     - name: Checkout repo

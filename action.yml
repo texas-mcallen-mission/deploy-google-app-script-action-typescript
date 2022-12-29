@@ -47,30 +47,30 @@ inputs:
     required: false
     # type: string
   # normal inputs
-  sha:
-    description: 'hash of git commit.'
-    required: false
-    # type: string
-  event_name:
-    description: 'if scheduled, used to avoid uploading code and just refresh clasprc'
-    required: false
-    # type: string
-  actor:
-    description: 'for git info'
-    required: false
-    # type: string
-  job:
-    description: 'for git info'
-    required: false
-    # type: string
-  repository:
-    description: 'for git info'
-    required: false
-    # type: string 
-  ref_name:
-    description: 'for git info'
-    required: false
-    # type: string
+  # sha:
+  #   description: 'hash of git commit.'
+  #   required: false
+  #   # type: string
+  # event_name:
+  #   description: 'if scheduled, used to avoid uploading code and just refresh clasprc'
+  #   required: false
+  #   # type: string
+  # actor:
+  #   description: 'for git info'
+  #   required: false
+  #   # type: string
+  # job:
+  #   description: 'for git info'
+  #   required: false
+  #   # type: string
+  # repository:
+  #   description: 'for git info'
+  #   required: false
+  #   # type: string 
+  # ref_name:
+  #   description: 'for git info'
+  #   required: false
+  #   # type: string
       
 
 runs:
@@ -177,11 +177,11 @@ runs:
         s|GITHUBREPOSITORY|'$GITHUB_REPOSITORY'|g;
         s/JOBID/'$GITHUB_JOB'/g;" git-info.js
       env:
-        COMMIT_SHA: ${{ inputs.sha }}
-        EVENT_NAME: ${{ inputs.event_name }}
-        COMMIT_ACTOR: ${{ inputs.actor }}
-        GITHUB_JOB: ${{ inputs.job }}
-        GITHUB_REF_NAME: ${{ inputs.ref_name }}
+        COMMIT_SHA: ${{ github.sha }} #${{ inputs.sha }}
+        EVENT_NAME: ${{ github.event_name }} # ${{ inputs.event_name }}
+        COMMIT_ACTOR: ${{ github.actor }} # ${{ inputs.actor }}
+        GITHUB_JOB: ${{ github.job }} # ${{ inputs.job }}
+        GITHUB_REF_NAME: ${{ github.ref_name }} # ${{ inputs.ref_name }}
         GITHUB_REPOSITORY: ${{ github.repository }} # ${{ inputs.repository }}
         # 🐧
       shell: bash

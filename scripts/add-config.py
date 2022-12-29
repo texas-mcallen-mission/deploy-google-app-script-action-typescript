@@ -9,8 +9,8 @@ argumentString = str(commandLineArgs).replace('\\n', '\n').replace('\\t', '\t')
 
 numArgs = len(sys.argv)
 
-print(nameOfScript," arguments: ",numArgs,"running with rename script internally.")
-
+print(nameOfScript," arguments: ",numArgs,"running with rename script internally."," EXTRA WORDS FOR TESTINGGGGGG")
+print("")
 
 file_in = open("git-info.js", "rt")
 

@@ -35,8 +35,7 @@ claspRun = wasSuccessful(parsedResult)
 # *might* add some extra parsing here to make the result easier to read?
 
 print(parsedResult)
-# if claspRun == False:
-if False == False:
+if claspRun == False:
     # and then throw an error.
     raise killAction("""
     Clasp had an internal error!""")

@@ -9,7 +9,7 @@ inputs:
   CLASP_TOKEN_NAME:
     description: 'clasp.rc Token name, defaults to "CLASPRC_JSON" - used to update the access token and keep it alive.'
     required: false
-    default: CLASPRC_JSON
+    default: 'CLASPRC_JSON'
   CLASP_TOKEN_VALUE:
     description: '' 
     required: true
@@ -118,7 +118,7 @@ runs:
       if: ${{ inputs.USES_ORG_SECRET  == false }}
       uses: texas-mcallen-mission/actions-secret-modifier@v2.0.4.2
       with:
-        name: ${{ inputs.CLASP_TOKEN_NAME }}
+        name: '${{ inputs.CLASP_TOKEN_NAME }}'
         value: ${{ env.CLASPRC_JSON_FILE }}
         repository: ${{ inputs.repository }} #${{ github.event.repository.name }}
         token: ${{ inputs.REPO_ACCESS_TOKEN }}

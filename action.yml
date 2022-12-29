@@ -91,6 +91,13 @@ runs:
       with:
         submodules: 'recursive'
 
+    - name: set env variable
+      id: set-env-test
+      run: echo ${{env-test}} 
+      env: 
+        env-test: ${{ github.action_ref }}
+      shell: bash
+
     - name: Pull Script Tooling
       id: pull-python-script
       if: ${{github.event_name	!= 'schedule' }}
@@ -98,7 +105,7 @@ runs:
       with:
         repository: texas-mcallen-mission/deploy-google-app-script-action-typescript
         path: deploy-data
-        ref: ${{ github.action_ref }} # 'main'
+        ref: ${{ env.env-test }} # ${{ github.action_ref }} # 'main'
 
     - name: Set up things to make it easier to transition over.
       id: repo-setup

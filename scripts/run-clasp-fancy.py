@@ -5,7 +5,7 @@ import subprocess
 #   Previously, if clasp didn't succeed, it'd just continue on without any indication of problems.
 #   Now, it'll throw an error and spit out the logs if it breaks.  *WAY* better.  :)
 #
-
+print("JUMPSTRING 4")
 # custom exception type
 class killAction(Exception):
     pass

@@ -1,6 +1,6 @@
 import os
 import glob
-
+print("JUMPSTRING 3")
 print(glob.glob(os.getcwd()))
 
 input_source = "git-info.js"

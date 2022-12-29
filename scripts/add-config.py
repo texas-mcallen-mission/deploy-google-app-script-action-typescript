@@ -1,6 +1,7 @@
 import sys
 import os
 
+print("JUMPSTRING 1")
 nameOfScript = sys.argv[0]
 commandLineArgs = sys.argv[1]
 

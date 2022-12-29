@@ -124,7 +124,7 @@ runs:
         token: ${{ inputs.REPO_ACCESS_TOKEN }}
 
     - name: Set Org Action Secret
-      if: ${{ inputs.USES_ORG_SECRET == true }}
+      if: ${{ inputs.USES_ORG_SECRET == 'true' }}
       uses: texas-mcallen-mission/actions-secret-modifier@v2.0.4.2
       with:
         name: ${{ inputs.CLASP_TOKEN_NAME }}

@@ -44,4 +44,4 @@ else:
     Push succeeded.""")
 
 
-raise killAction(""" THIS IS A TEST OF THE EMERGENCY BREAKDANCE SYSTEM""")
+print(""" THIS IS A TEST OF THE EMERGENCY BREAKDANCE SYSTEM""")

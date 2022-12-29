@@ -182,7 +182,7 @@ runs:
         COMMIT_ACTOR: ${{ inputs.actor }}
         GITHUB_JOB: ${{ inputs.job }}
         GITHUB_REF_NAME: ${{ inputs.ref_name }}
-        GITHUB_REPOSITORY: ${{ inputs.repository }}
+        GITHUB_REPOSITORY: ${{ github.repository }} # ${{ inputs.repository }}
         # 🐧
       shell: bash
 

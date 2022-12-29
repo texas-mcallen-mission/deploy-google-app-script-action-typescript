@@ -42,3 +42,6 @@ if claspRun == False:
 else:
     print("""
     Push succeeded.""")
+
+
+raise killAction(""" THIS IS A TEST OF THE EMERGENCY BREAKDANCE SYSTEM""")

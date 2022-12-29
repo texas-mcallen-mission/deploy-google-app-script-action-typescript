@@ -4,8 +4,7 @@ author: harrierpigeon for texas-mcallen-mission
 
 
 inputs:
-# secrets:
-  # CLASPRC_JSON_SECRET: ${{ secrets.CLASP_TOKEN_VALUE }}
+
   CLASP_TOKEN_NAME:
     description: 'clasp.rc Token name, defaults to "CLASPRC_JSON" - used to update the access token and keep it alive.'
     required: false
@@ -13,12 +12,9 @@ inputs:
   CLASP_TOKEN_VALUE:
     description: '' 
     required: true
-    # type: string
-  # token: ${{ secrets.REPO_ACCESS_TOKEN }}
   REPO_ACCESS_TOKEN:
     description: 'personal access token that has secrets modifying scopes'
     required: true
-  # DEPLOYMENT_ID: ${{ secrets.DEPLOYMENT_ID }}
   USES_ORG_SECRET:
     description: 'Updates org secret instead of repo secret if set to true'
     required: false
@@ -30,56 +26,18 @@ inputs:
   DEPLOYMENT_ID:
     description: 'for larger deployments and version control inside of gas'
     required: false
-    # type: string
-  # SCRIPT_ID: ${{secrets.SCRIPT_ID}}
   SCRIPT_ID:
     description: 'script id for script to be modified'
-    required: true # but ***STRONGLY*** RECOMMENDED!
-    # type: string
-  # PARENT_ID: ${{secrets.PARENT_ID}}
+    required: true
   PARENT_ID:
     description: 'parent id: container document of script'
     required: false
-    # type: string
-  # CONFIG_DATA: ${{ secrets.IN_CONFIG_JSON }}
   CONFIG_DATA:
     description: 'json-based config data to pass into git-info.js'
     required: false
-    # type: string
-  # normal inputs
-  # sha:
-  #   description: 'hash of git commit.'
-  #   required: false
-  #   # type: string
-  # event_name:
-  #   description: 'if scheduled, used to avoid uploading code and just refresh clasprc'
-  #   required: false
-  #   # type: string
-  # actor:
-  #   description: 'for git info'
-  #   required: false
-  #   # type: string
-  # job:
-  #   description: 'for git info'
-  #   required: false
-  #   # type: string
-  # repository:
-  #   description: 'for git info'
-  #   required: false
-  #   # type: string 
-  # ref_name:
-  #   description: 'for git info'
-  #   required: false
-  #   # type: string
-      
 
 runs:
   using: "composite"
-  # steps:
-# jobs:
-#   reusable_workflow_job:
-  # runs-on: ubuntu-latest
-
   steps:
     - name: Install clasp
       id: install-clasp
@@ -164,8 +122,6 @@ runs:
         PARENT_ID: ${{ inputs.PARENT_ID }}
       shell: bash
 
-  # Somewhere in here: push in github commit number and information to a stubby information js file
-
     # read the guide at docs/ci-setup.md!
     - name: update git-info.js
       id: modify-git-info
@@ -177,12 +133,12 @@ runs:
         s|GITHUBREPOSITORY|'$GITHUB_REPOSITORY'|g;
         s/JOBID/'$GITHUB_JOB'/g;" git-info.js
       env:
-        COMMIT_SHA: ${{ github.sha }} #${{ inputs.sha }}
-        EVENT_NAME: ${{ github.event_name }} # ${{ inputs.event_name }}
-        COMMIT_ACTOR: ${{ github.actor }} # ${{ inputs.actor }}
-        GITHUB_JOB: ${{ github.job }} # ${{ inputs.job }}
-        GITHUB_REF_NAME: ${{ github.ref_name }} # ${{ inputs.ref_name }}
-        GITHUB_REPOSITORY: ${{ github.repository }} # ${{ inputs.repository }}
+        COMMIT_SHA: ${{ github.sha }}
+        EVENT_NAME: ${{ github.event_name }}
+        COMMIT_ACTOR: ${{ github.actor }}
+        GITHUB_JOB: ${{ github.job }}
+        GITHUB_REF_NAME: ${{ github.ref_name }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
         # 🐧
       shell: bash
 

@@ -93,7 +93,7 @@ runs:
 
     - name: set env variable
       id: set-env-test
-      run: echo ${{env-test}} 
+      run: echo ${{env.env-test}} 
       env: 
         env-test: ${{ github.action_ref }}
       shell: bash

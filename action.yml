@@ -118,7 +118,7 @@ runs:
       if: ${{ inputs.USES_ORG_SECRET  == 'false' }}
       uses: texas-mcallen-mission/actions-secret-modifier@v2.0.4.2
       with:
-        name: 'CHICKEN_NUGGET' # '${{ inputs.CLASP_TOKEN_NAME }}'
+        name: ${{ inputs.CLASP_TOKEN_NAME }} # '${{ inputs.CLASP_TOKEN_NAME }}'
         value: ${{ env.CLASPRC_JSON_FILE }}
         repository: ${{ inputs.repository }} #${{ github.event.repository.name }}
         token: ${{ inputs.REPO_ACCESS_TOKEN }}

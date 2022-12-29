@@ -115,7 +115,7 @@ runs:
 
     - name: Set Repository Action Secret
       # if: WYLO: Switching between this and an org secret
-      # if: ${{ inputs.USES_ORG_SECRET  == false }}
+      if: ${{ inputs.USES_ORG_SECRET  == 'false' }}
       uses: texas-mcallen-mission/actions-secret-modifier@v2.0.4.2
       with:
         name: 'CHICKEN_NUGGET' # '${{ inputs.CLASP_TOKEN_NAME }}'

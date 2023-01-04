@@ -1,7 +1,7 @@
 import os
 import shutil
 print("setting things up.")
-
+print("JUMPSTRING 2")
 # Things to check for:
 #   Does clasp.json exist yet?
 #   Does git-info.js (or TS?) exist yet?  - if not, copy over local version

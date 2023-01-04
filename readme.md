@@ -73,6 +73,7 @@ with:
   SCRIPT_ID: ${{ secrets.SCRIPT_ID }}
 
 ```
+
 </td>
 </tr>
 <tr>

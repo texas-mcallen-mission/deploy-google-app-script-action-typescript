@@ -1,0 +1,180 @@
+name: Deploy To CLASP
+description: Updates a Google Apps Script project by using CLASP
+author: harrierpigeon for texas-mcallen-mission
+
+
+inputs:
+
+  CLASP_TOKEN_NAME:
+    description: 'clasp.rc Token name, defaults to "CLASPRC_JSON" - used to update the access token and keep it alive.'
+    required: false
+    default: 'CLASPRC_JSON'
+  CLASP_TOKEN_VALUE:
+    description: '' 
+    required: true
+  REPO_ACCESS_TOKEN:
+    description: 'personal access token that has secrets modifying scopes'
+    required: true
+  USES_ORG_SECRET:
+    description: 'Updates org secret instead of repo secret if set to true'
+    required: false
+    default: false
+  ORG_VISIBILITY:
+    description: 'repositories that are allowed to use a secret.  Default all.'
+    required: false
+    default: 'all'
+  DEPLOYMENT_ID:
+    description: 'for larger deployments and version control inside of gas'
+    required: false
+  SCRIPT_ID:
+    description: 'script id for script to be modified'
+    required: true
+  PARENT_ID:
+    description: 'parent id: container document of script'
+    required: false
+  CONFIG_DATA:
+    description: 'json-based config data to pass into git-info.js'
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install clasp
+      id: install-clasp
+      run: sudo npm install @google/clasp@2.4.1 -g
+      shell: bash
+
+    - name: Write CLASPRC_JSON secret to .clasprc.json file
+      id: write-clasprc
+      run: echo "$CLASPRC_JSON_SECRET" >> ~/.clasprc.json
+      env:
+        CLASPRC_JSON_SECRET: ${{ inputs.CLASP_TOKEN_VALUE }}
+      shell: bash
+
+    - name: Check clasp login status
+      id: clasp_login
+      run: clasp login --status
+      shell: bash
+
+    - name: Save current .clasprc.json contents to CLASPRC_JSON_FILE environment variable
+      id: save-clasprc
+      run: |
+        echo ::add-mask::$(tr -d '\n\r' < ~/.clasprc.json)
+        echo "CLASPRC_JSON_FILE=$(tr -d '\n\r' < ~/.clasprc.json)" >> $GITHUB_ENV
+      shell: bash        
+
+
+    - name: Set Repository Action Secret
+      if: ${{ inputs.USES_ORG_SECRET  == 'false' }}
+      uses: texas-mcallen-mission/actions-secret-modifier@v2.0.4.2
+      with:
+        name: ${{ inputs.CLASP_TOKEN_NAME }}
+        value: ${{ env.CLASPRC_JSON_FILE }}
+        repository: ${{ github.repository }} # ${{ inputs.repository }} #${{ github.event.repository.name }}
+        token: ${{ inputs.REPO_ACCESS_TOKEN }}
+
+    - name: Set Org Action Secret
+      if: ${{ inputs.USES_ORG_SECRET == 'true' }}
+      uses: texas-mcallen-mission/actions-secret-modifier@v2.0.4.2
+      with:
+        name: ${{ inputs.CLASP_TOKEN_NAME }}
+        value: ${{ env.CLASPRC_JSON_FILE }}
+        token: ${{ inputs.REPO_ACCESS_TOKEN }}
+        org: true
+        org-name: ${{ github.repository_owner }}
+        visibility: ${{ inputs.ORG_VISIBILITY }}
+
+    - name: Checkout repo
+      id: checkout-repo
+      if: ${{github.event_name	!= 'schedule' }}
+      uses: actions/checkout@v3
+      with:
+        submodules: 'recursive'
+
+    - name: set env variable
+      id: set-env-test
+      run: echo ${{env.env-test}} 
+      env: 
+        env-test: ${{ github.action_ref }}
+      shell: bash
+
+    - name: Pull Script Tooling
+      id: pull-python-script
+      if: ${{github.event_name	!= 'schedule' }}
+      uses: actions/checkout@v3
+      with:
+        repository: texas-mcallen-mission/deploy-google-app-script-action-typescript
+        path: deploy-data
+        ref: ${{ env.env-test }} # ${{ github.action_ref }} # 'main'
+
+    - name: Set up things to make it easier to transition over.
+      id: repo-setup
+      if: ${{ github.event_name	!= 'schedule'}}
+      run: /bin/python3 deploy-data/scripts/pre-setup.py
+      shell: bash
+
+    - name: Set scriptId in .clasp.json file
+      id: set-script-id
+      if: ${{ github.event_name	!= 'schedule' && env.SCRIPT_ID }}
+      run: jq '.scriptId = "${{ env.SCRIPT_ID }}"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
+      env:
+        SCRIPT_ID: ${{ inputs.SCRIPT_ID }}
+      shell: bash
+
+    - name: Set parentId in .clasp.json file
+      id: set-parent-id
+      if: ${{ github.event_name	!= 'schedule' && env.PARENT_ID }}
+      run: jq '.parentId = "[${{ env.PARENT_ID }}]"' .clasp.json > /tmp/.clasp.json && mv /tmp/.clasp.json .clasp.json
+      env:
+        PARENT_ID: ${{ inputs.PARENT_ID }}
+      shell: bash
+
+    # read the guide at docs/ci-setup.md!
+    - name: update git-info.js
+      id: modify-git-info
+      run: >
+        sed -ibak -e "s/COMMITSHA/'$COMMIT_SHA'/g;
+        s/REFNAME/'$GITHUB_REF_NAME'/g;
+        s/COMMITACTOR/'$COMMIT_ACTOR'/g;
+        s/EVENTNAME/'$EVENT_NAME'/g;
+        s|GITHUBREPOSITORY|'$GITHUB_REPOSITORY'|g;
+        s/JOBID/'$GITHUB_JOB'/g;" git-info.js
+      env:
+        COMMIT_SHA: ${{ github.sha }}
+        EVENT_NAME: ${{ github.event_name }}
+        COMMIT_ACTOR: ${{ github.actor }}
+        GITHUB_JOB: ${{ github.job }}
+        GITHUB_REF_NAME: ${{ github.ref_name }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        # 🐧
+      shell: bash
+
+    - name: update git-info.js Part 2 but in Python
+      id: modify-git-info-2-python
+      if: ${{ github.event_name	!= 'schedule' && env.CONFIG_DATA }}
+      run: /bin/python3 deploy-data/scripts/add-config.py "$CONFIG_DATA"
+      env:
+        CONFIG_DATA: ${{ inputs.CONFIG_DATA }}
+        # 🐧
+      shell: bash
+
+    - name: rename git-info and give it an A
+      id: rename-git-info-in-python
+      if: ${{github.event_name	!= 'schedule' }}
+      run: /bin/python3 deploy-data/scripts/rename-git-info.py "testArg"
+      shell: bash
+
+  # updated in fixes-and-updates branch to catch errors.
+    - name: Push script to scripts.google.com
+      id: clasp-push
+      if: ${{ github.event_name	!= 'schedule' }}
+      run: /bin/python3 deploy-data/scripts/run-clasp-fancy.py
+      shell: bash
+
+    - name: Deploy Script
+      id: clasp-deploy
+      if: ${{env.DEPLOYMENT_ID && (github.event_name == 'release' || (github.event_name == 'push' && github.ref == 'refs/heads/main'))}}
+      run: clasp deploy -i "$DEPLOYMENT_ID" -d "$GITHUB_REF"
+      env:
+        DEPLOYMENT_ID: ${{ inputs.DEPLOYMENT_ID }}
+      shell: bash

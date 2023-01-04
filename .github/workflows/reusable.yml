@@ -1,5 +1,5 @@
 name: Deploy Via CLASP
-
+# NOTE: THIS IS DEPRECATED!  PLEASE UPDATE TO USE THIS PROJECT AS A REUSABLE THING!
 on:
   workflow_call:
     inputs:
@@ -52,6 +52,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: complain about being on an old version
+        id: complain
+        run: echo "::warning file=reusable.yml,line=1,col=1,endColumn=1::Please update your workflow"
+
       - name: Install clasp
         id: install-clasp
         run: sudo npm install @google/clasp@2.4.1 -g

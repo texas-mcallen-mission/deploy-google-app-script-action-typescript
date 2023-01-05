@@ -37,15 +37,15 @@ Copy ``new-reusable.yml`` into your own project, change the branch name to whate
 
 | Input Value | Description | Required | Default Value |
 | :---: | :--- | :---: | :---: |
-| CLASP_TOKEN_VALUE | Clasp login token value. |  true |  |
-| CLASP_TOKEN_NAME | ``clasprc`` token name - used to update the access token and keep it alive.<sup>1</sup> |  false | ``CLASPRC_JSON`` |
-| REPO_ACCESS_TOKEN | Personal access token that has secrets modifying scopes.<sup>2</sup>  |  true |  |
-| USES_ORG_SECRET | Updates org secret instead of repo secret if set to true |  false | FALSE |
-| ORG_VISIBILITY | Only used if ``USES_ORG_SECRET`` is true, for changing what repositories have access to the value. | false | ``all`` |
-| SCRIPT_ID | Script id for script to be modified |  true |  |
-| PARENT_ID | Parent id - if you have a project connected to a Google Sheet, for instance, put the id of that sheet here.  Works with Docs, Slides, & Sheets at the very least. |  false |  |
-| DEPLOYMENT_ID | For larger deployments and version control inside of AppsScript. |  false |  |
-| CONFIG_DATA | JSON config data to pass into git-info.js<sup>3</sup> |  false |  |
+| CLASP_TOKEN_VALUE | Clasp login token value. |  yes |  |
+| CLASP_TOKEN_NAME | ``clasprc`` token name - used to update the access token and keep it alive.<sup>1</sup> |  no | ``CLASPRC_JSON`` |
+| REPO_ACCESS_TOKEN | Personal access token that has secrets modifying scopes.<sup>2</sup>  |  yes |  |
+| USES_ORG_SECRET | Updates org secret instead of repo secret if set to true |  no | FALSE |
+| ORG_VISIBILITY | Only used if ``USES_ORG_SECRET`` is true, for changing what repositories have access to the value. | no | ``all`` |
+| SCRIPT_ID | Script id for script to be modified |  yes |  |
+| PARENT_ID | Parent id - if you have a project connected to a Google Sheet, for instance, put the id of that sheet here.  Works with Docs, Slides, & Sheets at the very least. |  no |  |
+| DEPLOYMENT_ID | For larger deployments and version control inside of AppsScript. |  no |  |
+| CONFIG_DATA | JSON config data to pass into git-info.js<sup>3</sup> |  no | |
 
 <sup>
 
@@ -54,11 +54,13 @@ Copy ``new-reusable.yml`` into your own project, change the branch name to whate
 2. *For organizations, needs R/W access to repo and org secrets.*
 
 3. *JSON format, but don't encapsulate it. Should look something like this:*
+    
     ```js
     config_value: "string",
     config_submodule: {
         demoThingy1: false
-    }
+    },
+    config_array: ["words",true,{key:"value"}]
     ```
 
 </sup>

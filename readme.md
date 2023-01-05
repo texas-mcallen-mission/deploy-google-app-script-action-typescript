@@ -13,7 +13,7 @@ Part of the reason that we're using this instead of something that uses Google C
 
 </details>
 
-There's a minimum viable project demo available here: [deploy-tester](https://github.com/texas-mcallen-mission/deploy-tester) that has a guide on how to get the absolute bare minimum necessary set up to get something into AppScript.
+There's a minimum viable project demo available here: [deploy-tester](https://github.com/texas-mcallen-mission/deploy-tester)
 
 
 ## Getting Started

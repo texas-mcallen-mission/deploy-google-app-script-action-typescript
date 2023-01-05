@@ -43,16 +43,29 @@ Copy ``new-reusable.yml`` into your own project, change the branch name to whate
 
 | Input Value | Description | Required | Default Value |
 | :---: | :--- | :---: | :---: |
-| CLASP_TOKEN_VALUE |  |  true |  |
-| CLASP_TOKEN_NAME | ``clasp.rc`` token name - used to update the access token and keep it alive. |  false | ``CLASPRC_JSON`` |
-| REPO_ACCESS_TOKEN | personal access token that has secrets modifying scopes |  true |  |
+| CLASP_TOKEN_VALUE | Clasp login token value. |  true |  |
+| CLASP_TOKEN_NAME <sup>1</sup> | ``clasprc`` token name - used to update the access token and keep it alive. |  false | ``CLASPRC_JSON`` |
+| REPO_ACCESS_TOKEN <sup>2</sup> | personal access token that has secrets modifying scopes  |  true |  |
 | USES_ORG_SECRET | Updates org secret instead of repo secret if set to true |  false | FALSE |
 | ORG_VISIBILITY | only used if ``USES_ORG_SECRET`` is true, for changing what repositories have access to the value. | false | ``all`` |
 | SCRIPT_ID | script id for script to be modified |  true |  |
 | PARENT_ID | parent id - if you have a project connected to a Google Sheet, for instance, put the id of that sheet here.  Works with Docs, Slides, & Sheets at the very least. |  false |  |
 | DEPLOYMENT_ID | for larger deployments and version control inside of gas |  false |  |
-| CONFIG_DATA | json-based config data to pass into git-info.js |  false |  |
+| CONFIG_DATA <sup>3</sup> | json-based config data to pass into git-info.js |  false |  |
 
+<sup>
+
+1. *This is mostly useful to give a more meaningful name if you have a ton of secrets in your project.*
+2. *For organizations, needs R/W access to repo and org secrets.*
+3. *JSON format, but don't encapsulate it. Should look something like this:*
+    ```js
+    config_value: "string",
+    config_submodule: {
+        demoThingy1: false
+    }
+    ```
+
+</sup>
 
 ## Demo Workflows
 

@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Call Reusable Action
-      uses: texas-mcallen-mission/deploy-google-app-script-action-typescript/@v3.0.0
+      uses: texas-mcallen-mission/deploy-google-app-script-action-typescript/@v3.0.1
       with:
       # secrets:
         # THESE are the ones that are deployment-specific.
@@ -24,7 +24,7 @@ jobs:
         REPO_ACCESS_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
         USES_ORG_SECRET: false # optional.
         ORG_VISIBILITY: all # optional, default all.
-        SCRIPT_ID: ${{ secrets.SCRIPT_ID_DEV }}
-        PARENT_ID: ${{ secrets.PARENT_ID_DEV }} # optional.
+        SCRIPT_ID: ${{ secrets.SCRIPT_ID }}
+        PARENT_ID: ${{ secrets.PARENT_ID }} # optional.
         DEPLOYMENT_ID: ${{ secrets.DEPLOYMENT_ID }} # optional.
         CONFIG_DATA: ${{ secrets.CONFIG_DATA }} # optional.

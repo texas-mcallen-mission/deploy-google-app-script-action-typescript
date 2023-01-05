@@ -1,8 +1,0 @@
-{
-    "dependencies": {
-        "@types/google-apps-script": "^1.0.45",
-        "clasp": "^1.0.0",
-        "libsodium": "^0.7.10",
-        "libsodium-wrappers": "^0.7.10"
-    }
-}

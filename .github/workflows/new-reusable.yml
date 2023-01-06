@@ -3,11 +3,11 @@ name: CI Workflow Demo
 on:
   workflow_dispatch:
   push:
-    branches: [dev] # replace this with whatever branch you want to push from.
+    branches: [main] # replace this with whatever branch you want to push from.
   release:
     types: [published]
   schedule:
-    - cron: "0 0 * * SUN"
+    - cron: "0 0 * * SUN" # This keeps the clasprc token valid.
 
 
 jobs:
@@ -17,8 +17,6 @@ jobs:
     - name: Call Reusable Action
       uses: texas-mcallen-mission/deploy-google-app-script-action-typescript/@v3.0.1
       with:
-      # secrets:
-        # THESE are the ones that are deployment-specific.
         CLASP_TOKEN_VALUE: ${{ secrets.CLASPRC_JSON }}
         CLASP_TOKEN_NAME: 'CLASPRC_JSON'
         REPO_ACCESS_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
